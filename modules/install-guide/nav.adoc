@@ -10,7 +10,7 @@
 *** xref:Install_Source_DVD.adoc[Installation Source on a DVD]
 *** xref:Install_Source_HDD.adoc[Installation Source on a Hard Drive]
 *** xref:Install_Source_Network.adoc[Installation Source on the Network]
-* xref:Part_Install_x86.adoc.adoc[Installing x86_64 and ARM 64]
+* xref:Part_Install_x86.adoc.adoc[Installing on x86_64 and ARM 64]
 ** xref:Simple_Installation.adoc[Quick Installation Guide]
 ** xref:Steps-x86.adoc[Planning for Installation]
 ** xref:DU-Updating_drivers_during_installation_x86.adoc[Updating Drivers During Installation]
