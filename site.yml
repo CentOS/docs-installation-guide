@@ -7,7 +7,7 @@ content:
      branches: HEAD
 ui:
   bundle:
-    url: ui-bundle.zip # CHANGE THIS
+    url: https://docs.centos.org/_bundle/ui-bundle.zip
     snapshot: true
   default_layout: with_menu
 output:
