@@ -5,7 +5,7 @@ include::{partialsdir}/entities.adoc[]
 [[appe-ext4-to-xfs-command-reference]]
 = Reference Table for ext4 and XFS Commands
 
-XFS replaces ext4 as the default file system in {PRODUCT}{nbsp}7. This table serves as a cross reference listing common file system manipulation tasks and any changes in these commands between ext4 and XFS.
+XFS replaces ext4 as the default file system in {PRODUCT}{nbsp}{PRODVER}. This table serves as a cross reference listing common file system manipulation tasks and any changes in these commands between ext4 and XFS.
 
 [[tabl-xt4-to-xfs-command-reference]]
 .Reference Table for ext4 and XFS Commands

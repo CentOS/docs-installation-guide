@@ -44,7 +44,7 @@ This warning only applies to the kernel and initial ram disk (`vmlinuz` and `ini
 [NOTE]
 ====
 
-The procedures in this chapter describe setting up a network boot server on a {PRODUCT}{nbsp}7 system. For details about configuring network boot on earlier releases of {PRODUCT}, see the appropriate [citetitle]_Installation Guide_ for that release.
+The procedures in this chapter describe setting up a network boot server on a {PRODUCT}{nbsp}{PRODVER} system. For details about configuring network boot on earlier releases of {PRODUCT}, see the appropriate [citetitle]_Installation Guide_ for that release.
 
 ====
 

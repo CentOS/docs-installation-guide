@@ -14,7 +14,7 @@ A limitation of using a hard drive as the installation source is that the binary
 [IMPORTANT]
 ====
 
-The `FAT32` file system does not support files larger than 4 GiB. Some {PRODUCT}{nbsp}7 installation media can be larger than that, which means you cannot copy them to a drive with this file system.
+The `FAT32` file system does not support files larger than 4 GiB. Some {PRODUCT}{nbsp}{PRODVER} installation media can be larger than that, which means you cannot copy them to a drive with this file system.
 
 ====
 

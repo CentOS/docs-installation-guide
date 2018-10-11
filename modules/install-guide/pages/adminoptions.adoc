@@ -34,7 +34,7 @@ There are several different ways to edit boot options at the boot menu (that is,
 +
 Pressing the kbd:[Tab] key at this prompt will display help in the form of usable commands where applicable. To start the installation with your options, press the kbd:[Enter] key. To return from the `boot:` prompt to the boot menu, restart the computer and boot from the installation media again.
 
-* The `>` prompt on BIOS-based AMD64 and Intel{nbsp}64 systems, accessed by highlighting an entry in the boot menu and pressing the kbd:[Tab] key. Unlike the `boot:` prompt, this prompt allows you to edit a predefined set of boot options. For example, if you highlight the entry labeled `Test this media & install {PRODUCT}{nbsp}7.5`, a full set of options used by this menu entry will be displayed on the prompt, allowing you to add your own options.
+* The `>` prompt on BIOS-based AMD64 and Intel{nbsp}64 systems, accessed by highlighting an entry in the boot menu and pressing the kbd:[Tab] key. Unlike the `boot:` prompt, this prompt allows you to edit a predefined set of boot options. For example, if you highlight the entry labeled `Test this media & install {PRODUCT}{nbsp}{PRODVER}`, a full set of options used by this menu entry will be displayed on the prompt, allowing you to add your own options.
 +
 Pressing kbd:[Enter] will start the installation using the options you specified. To cancel editing and return to the boot menu, press the kbd:[Esc] key at any time.
 
@@ -90,7 +90,7 @@ This option allows for the configuration of different installation methods using
 [NOTE]
 ====
 
-In previous releases of {PRODUCT}, there were separate options for an installable tree accessible by NFS (the [option]`nfs` option) and an ISO image located on an NFS source (the [option]`nfsiso` option). In {PRODUCT}{nbsp}7, the installation program can automatically detect whether the source is an installable tree or a directory containing an ISO image, and the [option]`nfsiso` option is deprecated.
+In previous releases of {PRODUCT}, there were separate options for an installable tree accessible by NFS (the [option]`nfs` option) and an ISO image located on an NFS source (the [option]`nfsiso` option). In {PRODUCT}{nbsp}{PRODVER}, the installation program can automatically detect whether the source is an installable tree or a directory containing an ISO image, and the [option]`nfsiso` option is deprecated.
 
 ====
 +
@@ -186,7 +186,7 @@ In the above example, _next-server_ is the DHCP `next-server` option or the IP a
 |`192.168.122.1`|`192.168.122.100`|`192.168.122.1`:pass:attributes[{blank}]`/kickstart/192.168.122.100-kickstart`
 |===
 +
-Additionally, starting with {PRODUCT}{nbsp}7.2, the installer will attempt to load a Kickstart file named `ks.cfg` from a volume with a label of `OEMDRV` if present. If your Kickstart file is in this location, you do not need to use the [option]`inst.ks=` boot option at all.
+Additionally, the installer will attempt to load a Kickstart file named `ks.cfg` from a volume with a label of `OEMDRV` if present. If your Kickstart file is in this location, you do not need to use the [option]`inst.ks=` boot option at all.
 
 [option]`inst.ks.sendmac`::
 +
@@ -486,7 +486,7 @@ The [option]`selinux=0` and [option]`inst.selinux=0` options are not the same. T
 
 [option]`inst.nosave=`::
 +
-This option, introduced in {PRODUCT} 7.3, controls which Kickstart files and installation logs are saved to the installed system. It can be especially useful to disable saving such data when performing OEM operating system installations, or when generating images using sensitive resources (such as internal repository URLs), as these resources might otherwise be mentioned in kickstart files, or in logs on the image, or both. Possible values for this option are:
+This option controls which Kickstart files and installation logs are saved to the installed system. It can be especially useful to disable saving such data when performing OEM operating system installations, or when generating images using sensitive resources (such as internal repository URLs), as these resources might otherwise be mentioned in kickstart files, or in logs on the image, or both. Possible values for this option are:
 +
 `input_ks` - disables saving of the input Kickstart file (if any).
 +
@@ -703,7 +703,7 @@ Used to disable IPv6 support in the installation program. IPv6 is now built into
 
 [option]`upgradeany`::
 +
-Upgrades are done in a different way in {PRODUCT}{nbsp}7.
+Upgrades are done in a different way in {PRODUCT}{nbsp}{PRODVER}.
 
 [option]`vlanid=`::
 +
@@ -763,7 +763,7 @@ For more information about using [application]*Memtest86+*, see the official web
 
 You can test the integrity of an ISO-based installation source before using it to install {PRODUCT}. These sources include DVD, and ISO images stored on a hard drive or NFS server. Verifying that the ISO images are intact before you attempt an installation helps to avoid problems that are often encountered during installation.
 
-To test the checksum integrity of an ISO image, append the [option]`rd.live.check` to the boot loader command line. Note that this option is used automatically if you select the default installation option from the boot menu (`Test this media & install {PRODUCT}{nbsp}7.0`).
+To test the checksum integrity of an ISO image, append the [option]`rd.live.check` to the boot loader command line. Note that this option is used automatically if you select the default installation option from the boot menu (`Test this media & install {PRODUCT}{nbsp}{PRODVER}`).
 
 [[sect-boot-options-rescue]]
 === Booting Your Computer in Rescue Mode

@@ -18,7 +18,7 @@ All Kickstart scripts and the log files of their execution are stored in the `/t
 [NOTE]
 ====
 
-In previous versions of {PRODUCT}, Kickstart allowed for upgrading the system as well. In {PRODUCT}{nbsp}7, this functionality has been removed.
+In previous versions of {PRODUCT}, Kickstart allowed for upgrading the system as well. In {PRODUCT}{nbsp}7.x, this functionality has been removed.
 
 ====
 
@@ -85,7 +85,7 @@ Sections [command]`%addon`, [command]`%packages`, [command]`%onerror`, [command]
 [[sect-kickstart-verify]]
 ==== Verifying the Kickstart File
 
-When creating or customizing your Kickstart file, it is useful to verify that it is valid before attempting to use it in an installation. {PRODUCT}{nbsp}7 includes the [application]*ksvalidator* command line utility which can be used to do this. This tool is a part of the [package]*pykickstart* package. To install this package, execute the following command as `root`:
+When creating or customizing your Kickstart file, it is useful to verify that it is valid before attempting to use it in an installation. {PRODUCT}{nbsp}{PRODVER} includes the [application]*ksvalidator* command line utility which can be used to do this. This tool is a part of the [package]*pykickstart* package. To install this package, execute the following command as `root`:
 
 [literal,subs="+quotes,verbatim,macros"]
 ....
@@ -413,7 +413,7 @@ Ensure your system is not at risk of attack before disabling any of the vulnerab
 +
 ** [option]`--boot-drive=` - Specifies which drive the boot loader should be written to, and therefore which drive the computer will boot from. If you use a multipath device as the boot drive, specify only one member of the device.
 +
-** [option]`--leavebootorder` - The installer will add {PRODUCT} 7 to the top of the list of installed systems in the boot loader, and preserve all existing entries as well as their order.
+** [option]`--leavebootorder` - The installer will add {PRODUCT}{nbsp}{PRODVER} to the top of the list of installed systems in the boot loader, and preserve all existing entries as well as their order.
 +
 ** [option]`--driveorder=` - Specifies which drive is first in the BIOS boot order. For example:
 +
@@ -1157,8 +1157,6 @@ The options are as follows:
 
 When creating a new logical volume, you must either specify its size statically using the [option]`--size=` option, or as a percentage of remaining free space using the [option]`--percent=` option. You cannot use both of these options on the same logical volume.
 
-Note that this behavior is only applies to {PRODUCT}{nbsp}7.1 and later. In {PRODUCT}{nbsp}7.0, these two options interacted differently.
-
 ====
 +
 ** [option]`--maxsize=` - The maximum size in MiB when the logical volume is set to grow. Specify an integer value here such as `500` (do not include the unit).
@@ -1472,7 +1470,7 @@ Red{nbsp}Hat Enterprise{nbsp}Linux{nbsp}7 Networking Guide] for general informat
 
 [command]`%addon org_fedora_oscap` (optional)::
 +
-The OpenSCAP installer add-on is used to apply SCAP (Security Content Automation Protocol) content - security policies - on the installed system. This add-on has been enabled by default since {PRODUCT}{nbsp}7.2. When enabled, the packages necessary to provide this functionality will automatically be installed. However, by default, no policies are enforced, meaning that no checks are performed during or after installation unless specifically configured.
+The OpenSCAP installer add-on is used to apply SCAP (Security Content Automation Protocol) content - security policies - on the installed system. When enabled, the packages necessary to provide this functionality will automatically be installed. However, by default, no policies are enforced, meaning that no checks are performed during or after installation unless specifically configured.
 +
 [IMPORTANT]
 ====
@@ -1818,7 +1816,7 @@ raid mntpoint --level=level --device=device-name partitions*
 
 On IBM Power{nbsp}Systems, if a RAID device has been prepared and has not been reformatted during the installation, ensure that the RAID metadata version is `0.90` if you intend to put the `/boot` and `PReP` partitions on the RAID device.
 
-The default {PRODUCT}{nbsp}7 [application]*mdadm* metadata version is not supported for the boot device.
+The default {PRODUCT}{nbsp}{PRODVER} [application]*mdadm* metadata version is not supported for the boot device.
 
 ====
 +
@@ -2202,7 +2200,7 @@ Sets the system time zone to _timezone_.
 +
 ** [option]`--ntpservers=` - Specify a list of NTP servers to be used as a comma-separated list without spaces.
 +
-Starting with {PRODUCT}{nbsp}7.5, time zone names are validated using the `pytz.all_timezones` list, provided by the [package]*pytz* package. In previous releases, the names were validated against `pytz.common_timezones`, which is a subset of the currently used list. Note that the graphical and text mode interfaces still use the more restricted `pytz.common_timezones` list; you must use a Kickstart file to use additional time zone definitions.
+Starting with {PRODUCT}{nbsp}7.5.1804, time zone names are validated using the `pytz.all_timezones` list, provided by the [package]*pytz* package. In previous releases, the names were validated against `pytz.common_timezones`, which is a subset of the currently used list. Note that the graphical and text mode interfaces still use the more restricted `pytz.common_timezones` list; you must use a Kickstart file to use additional time zone definitions.
 
 [command]`unsupported_hardware` (optional)::
 +
@@ -2383,7 +2381,7 @@ Use the [command]`%include _/path/to/file_pass:attributes[{blank}]` command to i
 
 Use the [command]`%packages` command to begin a Kickstart section which describes the software packages to be installed.
 
-You can specify packages by _environment_, _group_, or by their package names. Several environments and groups that contain related packages are defined. See the `repodata/*-comps-_variant_._architecture_.xml` file on the {PRODUCT}{nbsp}7 Installation DVD for a list of environments and groups.
+You can specify packages by _environment_, _group_, or by their package names. Several environments and groups that contain related packages are defined. See the `repodata/*-comps-_variant_._architecture_.xml` file on the {PRODUCT}{nbsp}{PRODVER} Installation DVD for a list of environments and groups.
 
 The `*-comps-_variant_._architecture_.xml` file contains a structure describing available environments (marked by the `<environment>` tag) and groups (the `<group>` tag). Each entry has an ID, user visibility value, name, description, and package list. If the group is selected for installation, the packages marked `mandatory` in the package list are always installed, the packages marked `default` are installed if they are not specifically excluded elsewhere, and the packages marked `optional` must be specifically included elsewhere even when the group is selected.
 
@@ -2392,7 +2390,7 @@ You can specify a package group or environment using either its ID (the `<id>` t
 [IMPORTANT]
 ====
 
-If you are not sure what packages should be installed, select the `Minimal Install` environment. `Minimal install` provides only the packages which are essential for running {PRODUCT}{nbsp}7. This will substantially reduce the chance of the system being affected by a vulnerability. If necessary, additional packages can be added later after the installation. For more details on `Minimal install`, see the link:++https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Security_Guide/sec-Installing_the_Minimum_Amount_of_Packages_Required.html++[Installing the Minimum Amount of Packages Required] section of the Red{nbsp}Hat Enterprise{nbsp}Linux{nbsp}7 Security Guide.
+If you are not sure what packages should be installed, select the `Minimal Install` environment. `Minimal install` provides only the packages which are essential for running {PRODUCT}{nbsp}{PRODVER}. This will substantially reduce the chance of the system being affected by a vulnerability. If necessary, additional packages can be added later after the installation. For more details on `Minimal install`, see the link:++https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Security_Guide/sec-Installing_the_Minimum_Amount_of_Packages_Required.html++[Installing the Minimum Amount of Packages Required] section of the Red{nbsp}Hat Enterprise{nbsp}Linux{nbsp}7 Security Guide.
 
 ====
 
@@ -2425,7 +2423,7 @@ In addition to groups, you specify an entire environment to be installed:
 
 ....
 +
-This command installs all packages which are part of the `Infrastracture Server` environment. All available environments are described in the `repodata/*-comps-_variant_._architecture_.xml` file on the {PRODUCT}{nbsp}7 Installation DVD. Only a single environment can be specified in the Kickstart file.
+This command installs all packages which are part of the `Infrastracture Server` environment. All available environments are described in the `repodata/*-comps-_variant_._architecture_.xml` file on the {PRODUCT}{nbsp}{PRODVER} Installation DVD. Only a single environment can be specified in the Kickstart file.
 
 Specifying Groups::
 +
@@ -2797,7 +2795,7 @@ The above example mounts an NFS share and executes a script named `runme` locate
 [[sect-kickstart-onerror]]
 === Kickstart Error Handling
 
-Starting with {PRODUCT}{nbsp}7, Kickstart installations can contain custom scripts which are run when the installer encounters a fatal error - for example, an error in a package that has been requested for installation, failure to start VNC when specified, or an error when scanning storage devices. Installation cannot continue after such an error has occured. The installer will run all [command]`%onerror` scripts in the order they are provided in the Kickstart file. In addition, [command]`%onerror` scripts will be run in the event of a traceback.
+Kickstart installations can contain custom scripts which are run when the installer encounters a fatal error - for example, an error in a package that has been requested for installation, failure to start VNC when specified, or an error when scanning storage devices. Installation cannot continue after such an error has occured. The installer will run all [command]`%onerror` scripts in the order they are provided in the Kickstart file. In addition, [command]`%onerror` scripts will be run in the event of a traceback.
 
 Each [command]`%onerror` script is required to end with [command]`%end`.
 
@@ -2823,7 +2821,7 @@ Logs the script's output into the specified log file.
 [[sect-kickstart-addon]]
 === Kickstart Add-ons
 
-Starting with {PRODUCT}{nbsp}7, Kickstart installations support add-ons. These add-ons can expand the basic Kickstart (and Anaconda) functionality in many ways.
+Kickstart installations support add-ons. These add-ons can expand the basic Kickstart (and Anaconda) functionality in many ways.
 
 To use an add-on in your Kickstart file, use the [command]`%addon _addon_name_ _options_pass:attributes[{blank}]` command, and finish the command with an [command]`%end` statement, similar to pre-installation and post-installation scripts described in previous sections. For example, if you want to use the [application]*Kdump* add-on, which is distributed with [application]*Anaconda* by default, use the following commands:
 

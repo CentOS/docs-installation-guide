@@ -15,7 +15,7 @@ The `NFS` installation method uses an ISO image of the {PRODUCT} binary DVD plac
 
 For more information about NFS servers, see the link:++https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Storage_Administration_Guide/index.html++[Red{nbsp}Hat Enterprise{nbsp}Linux{nbsp}7 Storage Administration Guide].
 
-The following procedure is only meant as a basic outline of the process. The precise steps you must take to set up an NFS server will vary based on the system's architecture, operating system, package manager, service manager, and other factors. On {PRODUCT}{nbsp}7 systems, the procedure can be followed exactly as documented. For procedures describing the installation source creation process on earlier releases of {PRODUCT}, see the appropriate [citetitle]_Installation Guide_ for that release.
+The following procedure is only meant as a basic outline of the process. The precise steps you must take to set up an NFS server will vary based on the system's architecture, operating system, package manager, service manager, and other factors. On {PRODUCT}{nbsp}{PRODVER} systems, the procedure can be followed exactly as documented. For procedures describing the installation source creation process on earlier releases of {PRODUCT}, see the appropriate [citetitle]_Installation Guide_ for that release.
 
 [[proc-installation-server-setup-nfs]]
 .Preparing for Installation Using NFS
@@ -26,7 +26,7 @@ The following procedure is only meant as a basic outline of the process. The pre
 pass:quotes[`#`] yum install nfs-utils
 ....
 
-. Copy the full {PRODUCT}{nbsp}7 binary DVD ISO image to a suitable directory on the NFS server. For example, you can create directory `/{PRODUCT}-install/` for this purpose and save the ISO image here.
+. Copy the full {PRODUCT}{nbsp}{PRODVER} binary DVD ISO image to a suitable directory on the NFS server. For example, you can create directory `/{PRODUCT}-install/` for this purpose and save the ISO image here.
 
 . Open the `/etc/exports` file using a text editor and add a line with the following syntax:
 +
@@ -71,7 +71,7 @@ This installation method allows for a network-based installation using an instal
 
 For more information about HTTP and FTP servers, see the link:++https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/index.html++[{PRODUCT}{nbsp}7 System Administrator's Guide].
 
-The following procedure is only meant as a basic outline of the process. The precise steps you must take to set up an FTP server will vary based on the system's architecture, operating system, package manager, service manager, and other factors. On {PRODUCT}{nbsp}7 systems, the procedure can be followed exactly as documented. For procedures describing the installation source creation process on earlier releases of {PRODUCT}, see the appropriate [citetitle]_Installation Guide_ for that release.
+The following procedure is only meant as a basic outline of the process. The precise steps you must take to set up an FTP server will vary based on the system's architecture, operating system, package manager, service manager, and other factors. On {PRODUCT}{nbsp}{PRODVER} systems, the procedure can be followed exactly as documented. For procedures describing the installation source creation process on earlier releases of {PRODUCT}, see the appropriate [citetitle]_Installation Guide_ for that release.
 
 [[proc-installation-server-setup-http]]
 .Preparing Installation Using HTTP or HTTPS
@@ -98,7 +98,7 @@ If you decide to use `HTTPS` and the server is using a self-signed certificate, 
 
 ====
 
-. Copy the full {PRODUCT}{nbsp}7 binary DVD ISO image to the HTTP(S) server.
+. Copy the full {PRODUCT}{nbsp}{PRODVER} binary DVD ISO image to the HTTP(S) server.
 
 . Mount the binary DVD ISO image, using the [command]`mount` command, to a suitable directory:
 +
@@ -147,7 +147,7 @@ If you configured SSL/TLS security in your `vsftpd.conf` file, make sure to only
 
 ====
 
-. Copy the full {PRODUCT}{nbsp}7 binary DVD ISO image to the FTP server.
+. Copy the full {PRODUCT}{nbsp}{PRODVER} binary DVD ISO image to the FTP server.
 
 . Mount the binary DVD ISO image, using the [command]`mount` command, to a suitable directory:
 +

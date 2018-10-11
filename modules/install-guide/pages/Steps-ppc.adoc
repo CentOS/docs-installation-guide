@@ -110,7 +110,7 @@ The installation program automatically detects and installs your computer's hard
 +
 ** Information about the partitions used on the system. This information can include file system types, device node names, file system labels, and sizes. This will allow you to identify specific partitions during the partitioning process. Remember that different operating systems identify partitions and drives differently, therefore even if the other operating system is a Unix operating system, the device names can be reported by {PRODUCT} differently. This information can usually be found by executing the equivalent of the [command]`mount` command and [command]`blkid` command and in the `/etc/fstab` file.
 +
-If you have other operating systems already installed, the {PRODUCT}{nbsp}7 installation program attempts to automatically detect and configure to boot them. You can manually configure any additional operating systems if they are not detected properly. For more information, see xref:StorageSpoke-ppc64.adoc#sect-bootloader-ppc[Boot Loader Installation (ppc)].
+If you have other operating systems already installed, the {PRODUCT}{nbsp}{PRODVER} installation program attempts to automatically detect and configure to boot them. You can manually configure any additional operating systems if they are not detected properly. For more information, see xref:StorageSpoke-ppc64.adoc#sect-bootloader-ppc[Boot Loader Installation (ppc)].
 
 * If you plan to install from an image on a local hard drive:
 +
@@ -168,8 +168,6 @@ To install {PRODUCT} you must have a minimum of 10 GB of space in either unparti
 
 Installing {PRODUCT} using a Kickstart file has the same minimum RAM requirements as a manual installation. However, if you use a Kickstart file that runs commands which require additional memory or write data to the RAM disk, additional RAM might be necessary.
 
-For more information about the minimum requirements and technology limits of Red{nbsp}Hat Enterprise{nbsp}Linux{nbsp}7, see the [citetitle]_link:++https://access.redhat.com/articles/rhel-limits++[Red{nbsp}Hat Enterprise{nbsp}Linux technology capabilities and limits]_ article on the Red{nbsp}Hat Customer Portal.
-
 [[sect-installation-planning-partitioning-raid-ppc]]
 == RAID and Other Disk Devices
 
@@ -202,7 +200,7 @@ Some USB drives might not be recognized by the installation program. If configur
 [[sect-installation-planning-boot-method-ppc]]
 == Choose an Installation Boot Method
 
-You can use several methods to boot the {PRODUCT}{nbsp}7 installation program. The method you choose depends upon your installation media.
+You can use several methods to boot the {PRODUCT}{nbsp}{PRODVER} installation program. The method you choose depends upon your installation media.
 
 [NOTE]
 ====
@@ -226,7 +224,7 @@ A _preboot execution environment_ (PXE) server allows the installation program t
 [[sect-installation-planning-kickstart-ppc]]
 == Automating the Installation with Kickstart
 
-{PRODUCT}{nbsp}7 offers a way to partially or fully automate the installation process using a _Kickstart file_. Kickstart files contain answers to all questions normally asked by the installation program, such as what time zone do you want the system to use, how should the drives be partitioned or which packages should be installed. Providing a prepared Kickstart file at the beginning of the installation therefore allows you to perform the entire installation (or parts of it) automatically, without need for any intervention from the user. This is especially useful when deploying {PRODUCT} on a large number of systems at once.
+{PRODUCT}{nbsp}{PRODVER} offers a way to partially or fully automate the installation process using a _Kickstart file_. Kickstart files contain answers to all questions normally asked by the installation program, such as what time zone do you want the system to use, how should the drives be partitioned or which packages should be installed. Providing a prepared Kickstart file at the beginning of the installation therefore allows you to perform the entire installation (or parts of it) automatically, without need for any intervention from the user. This is especially useful when deploying {PRODUCT} on a large number of systems at once.
 
 In addition to allowing you to automate the installation, Kickstart files also provide more options regarding software selection. When installing {PRODUCT} manually using the graphical installation interface, your software selection is limited to pre-defined environments and add-ons. A Kickstart file allows you to install or remove individual packages as well.
 

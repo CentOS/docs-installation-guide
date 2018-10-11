@@ -13,7 +13,7 @@ This chapter describes the process of creating custom, bootable images of severa
 
 Creating custom images using [application]*livemedia-creator* is currently supported only on AMD64 and Intel{nbsp}64 (x86_64) and IBM POWER (big endian) systems.
 
-Additionally, {PRODUCT} only supports creating custom images of {PRODUCT}{nbsp}7.
+Additionally, {PRODUCT} only supports creating custom images of {PRODUCT}{nbsp}{PRODVER}.
 
 ====
 

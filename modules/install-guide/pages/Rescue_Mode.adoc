@@ -40,7 +40,7 @@ See the corresponding section in the [citetitle]_link:++https://access.redhat.co
 [[sect-rescue-mode]]
 == Anaconda Rescue Mode
 
-The [application]*Anaconda* installation program's rescue mode is a minimal Linux environment that can be booted from the {PRODUCT} 7 DVD or other boot media. It contains command-line utilities for repairing a wide variety of issues. This rescue mode can be accessed from the Troubleshooting submenu of the boot menu. In this mode, you can mount file systems as read-only or even to not mount them at all, blacklist or add a driver provided on a driver disc, install or upgrade system packages, or manage partitions.
+The [application]*Anaconda* installation program's rescue mode is a minimal Linux environment that can be booted from the {PRODUCT}{nbsp}{PRODVER} DVD or other boot media. It contains command-line utilities for repairing a wide variety of issues. This rescue mode can be accessed from the Troubleshooting submenu of the boot menu. In this mode, you can mount file systems as read-only or even to not mount them at all, blacklist or add a driver provided on a driver disc, install or upgrade system packages, or manage partitions.
 
 [NOTE]
 ====
@@ -81,7 +81,7 @@ inst.rescue inst.dd=driver_name
 +
 For more information on using a driver disc at boot time, see xref:DU-Updating_drivers_during_installation_x86.adoc#sect-driver-updates-manual-x86[Manual Driver Update (x86)] for AMD64 and Intel{nbsp}64 systems or xref:DU-Updating_drivers_during_installation_ppc.adoc#sect-driver-updates-manual-ppc[Manual Driver Update (ppc)] for IBM Power{nbsp}Systems servers.
 
-. If a driver that is part of the {PRODUCT}{nbsp}7 distribution prevents the system from booting, append the [option]`modprobe.blacklist=` option to the boot command line:
+. If a driver that is part of the {PRODUCT}{nbsp}{PRODVER} distribution prevents the system from booting, append the [option]`modprobe.blacklist=` option to the boot command line:
 +
 [literal,subs="+quotes,verbatim"]
 ....

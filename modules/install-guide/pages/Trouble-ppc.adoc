@@ -123,7 +123,7 @@ To debug installation problems you can set the [option]`inst.debug` option to cr
 
 To set the option in the {PRODUCT} installation boot menu:
 
-. Select the `Install {PRODUCT} 7.3` entry.
+. Select the `Install {PRODUCT}{nbsp}{PRODVER}` entry.
 
 . Press the kbd:[Tab] key to edit the boot options.
 
