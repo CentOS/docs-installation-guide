@@ -9,7 +9,7 @@ ui:
   bundle:
     url: https://docs.centos.org/_bundle/ui-bundle.zip
     snapshot: true
-  default_layout: with_menu
+  default_layout: default
 output:
   clean: true
   dir: ./public
