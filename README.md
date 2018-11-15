@@ -1,4 +1,4 @@
-# CentOS Official Documentation
+# CentOS Installation Guide
 
 This repository contains the sources that make up the [https://docs.centos.org/en-US/centos/install-guide/](CentOS Installation Guide). Please report Issues and submit Pull Requests for **Content Fixes** here. For other issues or fixes, use:
 
