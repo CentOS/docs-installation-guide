@@ -1,6 +1,11 @@
 # CentOS Official Documentation
 
-Please report Issues and submit Pull Requests for **Content Fixes** here.
+This repository contains the sources that make up the [https://docs.centos.org/en-US/centos/install-guide/](CentOS Installation Guide). Please report Issues and submit Pull Requests for **Content Fixes** here. For other issues or fixes, use:
+
+* [CentOS_Docs](https://github.com/CentOS/docs) - the builder repository for the entire website, including for example structure configuration
+* [CentOS_Docs_Web_UI](https://github.com/CentOS/docs-web-ui) - the website's user interface (e.g. CSS styling) sources
+
+## Repository structure
 
 The documentation is broken up into two top level directories. The `legacy_docs`
 directory contains the debranded single-page html documentation. As the
@@ -13,15 +18,6 @@ and `preview.sh` scripts, as described below. The build script used a Docker con
 to run the Antora publishing system and compose a static website out of the ASCIIDoc
 sources, and the preview script runs another container with `nginx` that allows you
 to preview the site locally. Details are described further in this document.
-
-## How to edit these documents
-
-All of this is written in AsciiDoc. It's a simple mostly-plain-text
-markup language. You may want to look at:
-
-* [AsciiDoc Syntax Quick Reference](http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/)
-* [AsciiDoc Writer’s  Guide](http://asciidoctor.org/docs/asciidoc-writers-guide/)
-* [Antora Documentation](https://docs.antora.org/antora/1.0/page/)
 
 ## Structure
 
@@ -59,8 +55,17 @@ markup language. You may want to look at:
 
 Antora introduces two new terms:
 
-* **Component** — Simply put, a component is a part of the documentation website with its own menu. Components can also be versioned. In the Fedora Docs, we use separate components for user documentation, the Fedora Poject, Fedora council, Mindshare, FESCO, but also subprojects such as CommOps or Modulartity.
-* **Module** — A component can be broken down into multiple modules. Modules still share a single menu on the site, but their sources can be stored in different git repositories, even owned by different groups. The default module is called "ROOT" (that's what is in this example). If you don't want to use multiple modules, only use "ROOT". But to define more modules, simply duplicate the "ROOT" directory and name it anything you want. You can store modules in one or more git repositories.
+* **Component** — Simply put, a component is a part of the documentation website with its own menu. Components can also be versioned.
+* **Module** — A component can be broken down into multiple modules. Modules still share a single menu on the site, but their sources can be stored in different git repositories, even owned by different groups. The default module is called `ROOT` (that's what is in this example; the guide actually uses `install-guide`). If you don't want to use multiple modules, you can use `ROOT`. But to define more modules, simply duplicate the `ROOT` directory and name it anything you want. You can store modules in one or more git repositories.
+
+## How to edit these documents
+
+All of this is written in AsciiDoc. It's a simple mostly-plain-text
+markup language. You may want to look at:
+
+* [AsciiDoc Syntax Quick Reference](http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/)
+* [AsciiDoc Writer’s  Guide](http://asciidoctor.org/docs/asciidoc-writers-guide/)
+* [Antora Documentation](https://docs.antora.org/antora/1.0/page/)
 
 ## Local preview
 
