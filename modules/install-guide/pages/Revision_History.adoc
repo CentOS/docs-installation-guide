@@ -1,0 +1,20 @@
+
+:experimental:
+
+include::{partialsdir}/entities.adoc[]
+
+[[appe-revision-history]]
+= Revision History
+
+Note that revision numbers relate to the edition of this manual, not to version numbers of {PRODUCT}.
+
+`1.1`:: Tue Nov 20 2018, Petr Bokoč (pbokoc@redhat.com)
+
+* Update for CentOS 7.6.1810, based on the Red Hat Enterprise Linux 7.6 Installation Guide
+* Added NVDIMM support in Kickstart and GUI installer
+* Added a chapter on Composer
+* Added a Revision History
+
+`1.0`:: Thu Oct 11 2018, Petr Bokoč (pbokoc@redhat.com)
+
+* Initial release of the new CentOS Installation Guide, based on Red Hat Enterprise Linux 7.5 Installation Guide and converted for the Antora toolchain
