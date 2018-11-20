@@ -36,9 +36,9 @@ Other SAN Devices::
 +
 Devices available on a Storage Area Network (SAN).
 
-Firmware RAID::
+NVDIMM Devices::
 +
-Storage devices attached to a firmware RAID controller.
+Non-Volatile Dual In-line Memory Module (NVDIMM) storage devices on the machine.
 
 .Tabbed Overview of Specialized Storage Devices
 
@@ -49,6 +49,10 @@ A set of buttons is available in the bottom right corner of the screen. Use thes
 * btn:[Add iSCSI Target] - use to attach iSCSI devices; continue with xref:FilterSpoke-x86.adoc#sect-advanced-storage-iscsi-x86[Configure iSCSI Parameters (x86)]
 
 * btn:[Add FCoE SAN] - use to configure a Fibre Channel Over Internet storage device; continue with xref:FilterSpoke-x86.adoc#sect-advanced-storage-fcoe-x86[Configure FCoE Parameters (x86)]
+
+* btn:[Reconfigure NVDIMM] - use to reconfigure a NVDIMM device into sector mode; continue with xref:FilterSpoke-x86.adoc#sect-advanced-storage-nvdimm-x86[Reconfigure NVDIMM (x86)]
+
+* btn:[Refresh List] - use to reload the list when a device is added after the installer starts.
 
 The overview page also contains the `Search` tab that allows you to filter storage devices either by their _World Wide Identifier_ (WWID) or by the port, target, or _logical unit number_ (LUN) at which they are accessed.
 
@@ -72,18 +76,18 @@ Any storage devices that you do not select on this screen are hidden from [appli
 When you have selected the storage devices to make available during installation, click btn:[Done] to return to the Installation Destination screen.
 
 [[sect-advanced-storage-options-x86]]
-=== Advanced Storage Options
+== Advanced Storage Options
 
-To use an advanced storage device, you can configure an _iSCSI_ (SCSI over TCP/IP) target or _FCoE_ (Fibre Channel over Ethernet) _SAN_ (Storage Area Network) by clicking the appropriate button in the lower right corner of the Installation Destination screen. See xref:iSCSI.adoc#appe-iscsi-disks[iSCSI Disks] for an introduction to iSCSI.
+To use an advanced storage device, you can configure a SCSI over TCP/IP (_iSCSI_) target, Fibre Channel over Ethernet (_FCoE_) Storage Area Network (_SAN_), or Non-Volatile Dual In-line Memory Module (_NVDIMM_) device by clicking the appropriate button in the lower right corner of the Installation Destination screen. For an introduction to iSCSI, see xref:iSCSI.adoc#appe-iscsi-disks[iSCSI Disks].
 
 .Advanced Storage Options
 
 image::{imagesdir}/storagedevices/searchstoragedevices.png[Advanced Storage Options]
 
 [[sect-advanced-storage-iscsi-x86]]
-==== Configuring iSCSI Parameters
+=== Configuring iSCSI Parameters
 
-When you have clicked the `Add iSCSI target...` button, the `Add iSCSI Storage Target` dialog appears.
+When you click the `Add iSCSI target...` button, the `Add iSCSI Storage Target` dialog appears.
 
 .The iSCSI Discovery Details Dialog
 
@@ -146,9 +150,9 @@ image::{imagesdir}/diskpartadvanced/iscsi-discovered-nodes.png[The Dialog of Dis
 . Click btn:[Log In] to initiate an iSCSI session.
 
 [[sect-advanced-storage-fcoe-x86]]
-==== Configuring FCoE Parameters
+=== Configuring FCoE Parameters
 
-When you have clicked the `Add FCoE SAN...` button, a dialog appears for you to configure network interfaces for discovering FCoE storage devices.
+When you click the `Add FCoE SAN...` button, a dialog appears for you to configure network interfaces for discovering FCoE storage devices.
 
 First, select a network interface that is connected to a FCoE switch in the `NIC` drop-down menu and click the btn:[Add FCoE disk(s)] button to scan the network for SAN devices.
 
@@ -167,3 +171,29 @@ Use auto vlan::
 _Auto VLAN_ indicates whether VLAN discovery should be performed. If this box is checked, then the FIP (FCoE Initiation Protocol) VLAN discovery protocol will run on the Ethernet interface once the link configuration has been validated. If they are not already configured, network interfaces for any discovered FCoE VLANs will be automatically created and FCoE instances will be created on the VLAN interfaces. This option is enabled by default.
 
 Discovered FCoE devices will be displayed under the `Other SAN Devices` tab in the Installation Destination screen.
+
+[[sect-advanced-storage-nvdimm-x86]]
+=== Configuring NVDIMM Devices
+
+When you click the `Reconfigure NVDIMM` button, a dialog appears for you to reconfigure the selected NVDIMM devices into sector mode. The reconfiguration lets you use this NVDIMM device as an installation destination.
+
+.Reconfigure NVDIMM
+
+image::{imagesdir}/diskpartadvanced/nvdimm-reconfigure.png[Reconfigure NVDIMM]
+
+[WARNING]
+====
+
+Reconfiguration of a NVDIMM device process destroys any data stored on the device.
+
+====
+
+Select the sector size and press the btn:[Start reconfiguration] button. The supported sector sizes are 512 and 4096 bytes.
+
+Once the device is configured, press btn:[OK] to return to the Installation Destination screen.
+
+.Successfully reconfigured NVDIMM
+
+image::{imagesdir}/diskpartadvanced/nvdimm-reconfigure-success.png[Successfully reconfigured NVDIMM]
+
+NVDIMM devices in sector mode will be displayed under the `NVDIMM Devices` tab in the Installation Destination screen and can now be selected for installation.

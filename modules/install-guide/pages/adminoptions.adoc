@@ -80,6 +80,7 @@ This option allows for the configuration of different installation methods using
 |Any CD/DVD drive|[option]`inst.repo=cdrom`
 |Specific CD/DVD drive|[option]`inst.repo=cdrom:pass:attributes[{blank}]_device_pass:attributes[{blank}]`
 |Hard Drive|[option]`inst.repo=hd:pass:attributes[{blank}]_device_:/pass:attributes[{blank}]_path_pass:attributes[{blank}]`
+|HMC|[option]`inst.repo=hmc`
 |HTTP Server|[option]`inst.repo=http://pass:attributes[{blank}]_host_pass:attributes[{blank}]/pass:attributes[{blank}]_path_pass:attributes[{blank}]`
 |HTTPS Server|[option]`inst.repo=https://pass:attributes[{blank}]_host_pass:attributes[{blank}]/pass:attributes[{blank}]_path_pass:attributes[{blank}]`
 |FTP Server|[option]`inst.repo=ftp://pass:attributes[{blank}]_username_:pass:attributes[{blank}]_password_pass:attributes[{blank}]@pass:attributes[{blank}]_host_pass:attributes[{blank}]/pass:attributes[{blank}]_path_pass:attributes[{blank}]`

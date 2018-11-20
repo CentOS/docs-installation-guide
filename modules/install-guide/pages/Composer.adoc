@@ -1,0 +1,477 @@
+
+:experimental:
+:toc:
+include::{partialsdir}/entities.adoc[]
+
+[[chap-composer-x86]]
+= Building Custom System Images with Composer
+
+Composer is a tool for creating custom system images. The following sections describe how to install it and how to use it.
+
+[[_introduction_to_composer]]
+== Introduction to Composer
+
+Composer is a tool that enables users to create customized system images of {PRODUCT}. On {PRODUCT}{nbsp}{PRODVER}, Composer is available in the [package]*lorax-composer* package.
+
+[IMPORTANT]
+====
+
+Composer is an experimental feature in {PRODUCT}{nbsp}{PRODVER}.
+
+====
+
+[discrete]
+=== Composer Output Formats
+Composer can create these output formats:
+
+[options="header"]
+|===
+|Description|CLI name|file extension
+|QEMU QCOW2 Image|`qcow2`|`.qcow2`
+|Ext4 File System Image|`ext4-filesystem`|`.img`
+|Raw Partitioned Disk Image|`partitioned-disk`|`.img`
+|Live Bootable ISO|`live-iso`|`.iso`
+|TAR Archive|`tar`|`.tar`
+|===
+
+[discrete]
+=== Composer User Interfaces
+The Composer back end runs as a system service [command]`lorax-composer`. Users can interact with this service through two front ends:
+
+* GUI available as a Cockpit plugin. This is the preferred method.
+
+* CLI available as the [command]`composer-cli` tool for running commands.
+
+[discrete]
+=== Composer Blueprints
+In Composer, a _blueprint_ defines a customized system image by listing packages that will be part of the system. Blueprints can be edited and they are versioned.
+
+When a system image is created from a blueprint, the image is associated with the blueprint in Composer Cockpit interface.
+
+[[_composer_system_requirements]]
+== Composer System Requirements
+
+Use a virtual machine to run Composer, because the underlying [command]`lorax` tool performs a number of potentially insecure and unsafe actions while creating the system images. The environment where Composer runs should meet these requirements:
+
+[options="header"]
+|===
+|Parameter|Minimal Required Value
+|System type|A dedicated virtual machine
+|Processor|2 cores
+|Memory|4 GiB
+|Disk space|20 GiB
+|Access privileges|Administrator level (root)
+|SElinux|Off (permissive mode)
+|Network|Connectivity to Internet and to a system with repository mirrors
+|===
+
+Apart from the virtual machine that runs Composer itself, another system is needed to provide mirrors of Red Hat content delivery network (CDN) package repositories.
+
+[IMPORTANT]
+====
+
+Composer is an experimental feature in {PRODUCT}{nbsp}{PRODVER}.
+
+====
+
+[[_preparing-a-repository-mirror-for-composer]]
+== Preparing a Repository Mirror for Composer
+
+For technical reasons, Composer cannot directly use the Red Hat content delivery network (CDN). This procedure describes how to prepare a mirror of such content on a system different from the one running Composer.
+
+[discrete]
+=== Prerequisites
+
+* The file system containing the `/var/www` directory must have at least 50 GiB of free space available. To check this:
++
+[literal,subs="+quotes,verbatim,macros"]
+....
+$ [command]`df -h /var/www/`
+....
+
+* The system must use the same version of Red Hat Enterprise Linux as the system using Composer and be fully subscribed.
+
+[discrete]
+=== Procedure
+. Install the tools for handling packages and repositories, and the Apache web server:
++
+[literal,subs="+quotes,verbatim"]
+....
+# yum install yum-utils createrepo httpd
+....
+
+. List the repositories enabled on this machine and note their identifiers:
++
+[literal,subs="+quotes,verbatim"]
+....
+# yum repolist
+....
+
+. Create local mirrors of the repositories that you want to use in Composer. For each of these repositories, run:
++
+[literal,subs="+quotes,verbatim"]
+....
+# mkdir -p /var/www/html
+# reposync --gpgcheck -l --download_path=/var/www/html --repoid REPO-ID --downloadcomps --download-metadata
+$ cd /var/www/html/REPO-ID
+$ createrepo -v /var/www/html/REPO-ID -g comps.xml
+....
++
+Replace _REPO-ID_ with the identifier you noted in the previous step.
+
+. Make sure that the repositories have the correct SELinux context so that the [command]`httpd` Apache web server can access the repository mirrors:
++
+[literal,subs="+quotes,verbatim"]
+....
+# chcon -vR -t httpd_sys_content_t /var/www/html/
+....
+
+. Enable the web server to start after each reboot, configure the system firewall, and start the server for the first time:
++
+[literal,subs="+quotes,verbatim"]
+....
+# systemctl enable httpd
+# firewall-cmd --add-service=http --permanent
+# firewall-cmd --add-service=http
+# systemctl start httpd
+....
+
+[[_installing_composer]]
+== Installing Composer
+
+To install Composer on a dedicated virtual machine, follow these steps.
+
+[IMPORTANT]
+====
+
+Composer is an experimental feature in {PRODUCT}{nbsp}{PRODVER}.
+
+====
+
+[discrete]
+=== Prerequisites
+
+* The virtual machine for Composer must be already installed, meet the <<_composer_system_requirements,requirements>>, be subscribed, and be running.
+
+* The <<_preparing-a-repository-mirror-for-composer,system with repository mirrors>> must be accessible on network.
+
+* The Composer system must use the same version of {PRODUCT} as the system containing repository mirrors.
+
+* You must be connected to the virtual machine and run all the commands there.
+
+* The repository `RHEL-7-Extras` must be enabled on the system.
+
+[discrete]
+=== Procedure
+. Install the Composer packages:
++
+[literal,subs="+quotes,verbatim"]
+....
+# yum install lorax-composer composer-cli cockpit-composer
+....
++
+[NOTE]
+====
+
+If Cockpit is not installed yet, it is implicitly installed as a dependency of the [package]*cockpit-composer* package.
+
+====
+
+. List the repositories enabled on this machine and note their identifiers:
++
+[literal,subs="+quotes,verbatim"]
+....
+# yum repolist
+....
+
+. Create a repository configuration file in the `/etc/yum.repos.d` directory which points to the mirrored repositories. Include the IP address or host name of the virtual machine system. For each of the repository mirrors, run:
++
+[literal,subs="+quotes,verbatim,macros"]
+....
+# cat >> /etc/yum.repos.d/mirror.repo <<EOF
+[mirror-pass:quotes[_REPO-ID_]]
+name=pass:quotes[_NAME_]
+baseurl=http://pass:quotes[_IP-ADDR_]/cdrom/
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+
+EOF
+....
++
+Replace _REPO-ID_ with the repository identifier, _NAME_ with the repository name, and _IP-ADDR_ with the IP address or host name. This will present the repository mirrors to the system with an identifier containing the prefix _mirror-_.
+
+. Verify the repository configuration:
++
+[literal,subs="+quotes,verbatim"]
+....
+# yum clean all
+# yum repolist
+....
+
+. Disable the original subscribed repositories from Red Hat content delivery network. For each of the mirrored repositories, run:
++
+[literal,subs="+quotes,verbatim"]
+....
+# yum-config-manager --disable REPO-ID
+....
++
+Replace _REPO-ID_ with the repository identifier.
+
+. Enable Composer to start after each reboot and configure the system firewall:
++
+[literal,subs="+quotes,verbatim"]
+....
+# systemctl enable lorax-composer.socket
+# systemctl enable cockpit.socket
+# firewall-cmd --add-service=cockpit && firewall-cmd --add-service=cockpit --permanent
+....
+
+. The Composer and Cockpit services are started automatically on each system reboot. For this first session after installation, start these services manually:
++
+[literal,subs="+quotes,verbatim"]
+....
+# systemctl start lorax-composer
+# systemctl start cockpit
+....
+
+[[_accessing_composer_gui_in_web_console]]
+== Accessing Composer GUI in Cockpit
+
+Using Cockpit is the recommended way of accessing Composer functionality.
+
+[IMPORTANT]
+====
+
+Composer is an experimental feature in {PRODUCT}{nbsp}{PRODVER}.
+
+====
+
+[discrete]
+=== Prerequisites
+
+* You must have root access to the system.
+
+[discrete]
+=== Procedure
+. Open `link:++https://localhost:9090/++[https://localhost:9090/]` in a web browser on the system with Composer.
++
+[NOTE]
+====
+
+Accessing Composer from another system falls under the topic of remote access to Cockpit. For more information, see the link:++https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html-single/getting_started_with_cockpit/index++[Getting Started with Cockpit] guide.
+
+====
+
+. Log into the Cockpit with credentials for an user account with sufficient privileges on the system.
+
+. On the left, click the `Image Builder` icon to display the Composer controls.
++
+The Composer view opens, listing existing blueprints.
+
+[[_creating_a_composer_blueprint]]
+== Creating a Composer Blueprint
+
+These are the steps for creating a blueprint.
+
+[IMPORTANT]
+====
+
+Composer is an experimental feature in {PRODUCT}{nbsp}{PRODVER}.
+
+====
+
+[discrete]
+=== Prerequisites
+
+* You have opened the Composer Cockpit interface in a browser.
+
+[discrete]
+=== Procedure
+. Click btn:[Create Blueprint] in the top right corner.
++
+A pop-up appears with fields for the blueprint name and description.
+
+. Fill in the name of the blueprint and its description, then click btn:[Create].
++
+The screen changes to blueprint editing mode.
+
+. Add components that you want to include in the system image:
++
+.. On the left, enter component name or a part of it into the field under the heading `Available Components` and press btn:[Enter].
++
+The search is added to the list of filters under the text entry field, and the list of components below is reduced to these that match the search.
++
+If the list of components is too long, add further search terms in the same way.
++
+.. The list of components is paged. To move to other result pages, use the arrows and entry field above the component list.
++
+.. Click on name of the component you intend to use to display its details. The right pane fills with details of the components, such as its version and dependencies.
++
+.. Select the version you want to use in the `Component Options` box, with the `Version Release` drop-down menu.
++
+.. Click btn:[Add] in the top left.
++
+.. If you added a component by mistake, remove it by clicking the btn:[⫶] button at the far right of its entry in the right pane, and select `Remove` in the menu.
++
+[NOTE]
+====
+
+If you do not intend to select version for some components, you can skip the component details screen and version selection by clicking the btn:[+] buttons on the right side of the component list.
+
+====
+
+. To save the blueprint, click btn:[Commit] in the top left. A dialog with a summary of the changes pops up. Click btn:[Commit].
++
+A small pop-up on the right informs you of the saving progress and then result.
+
+. In the top left, click `Back to Blueprints` to exit the editing screen.
++
+The Composer view opens, listing existing blueprints.
+
+[[_editing_a_composer_blueprint]]
+== Editing a Composer Blueprint
+
+These are the steps for editing a blueprint.
+
+[IMPORTANT]
+====
+
+Composer is an experimental feature in {PRODUCT}{nbsp}{PRODVER}.
+
+====
+
+[discrete]
+=== Prerequisites
+
+* You have opened the Composer Cockpit interface in a browser.
+
+* A blueprint exists.
+
+[discrete]
+=== Procedure
+. Locate the blueprint that you want to edit by entering its name or a part of it into the search box at top left, and press kbd:[Enter].
++
+The search is added to the list of filters under the text entry field, and the list of blueprints below is reduced to these that match the search.
++
+If the list of blueprints is too long, add further search terms in the same way.
+
+. On the left side of the blueprint, press the btn:[Edit Blueprint] button that belongs to the blueprint.
++
+The view changes to the blueprint editing screen.
+
+. Remove unwanted components by clicking their btn:[⫶] button at the far right of its entry in the right pane, and select `Remove` in the menu.
+
+. Change version of existing components:
++
+.. On the left, enter component name or a part of it into the field under the heading `Blueprint Components` and press btn:[Enter].
++
+The search is added to the list of filters under the text entry field, and the list of components below is reduced to these that match the search.
++
+If the list of components is too long, add further search terms in the same way.
++
+.. Click the btn:[⫶] button at the far right of the component entry, and select `Edit` in the menu.
++
+A component details screen opens in the right pane.
++
+.. Select the required version in the `Version Release` drop-down menu and click btn:[Apply Change] in top left.
++
+The change is saved and the right pane returns to listing the blueprint components.
+
+. Add new components:
++
+.. On the left, enter component name or a part of it into the field under the heading `Available Components` and press btn:[Enter].
++
+The search is added to the list of filters under the text entry field, and the list of components below is reduced to these that match the search.
++
+If the list of components is too long, add further search terms in the same way.
++
+.. The list of components is paged. To move to other result pages, use the arrows and entry field above the component list.
++
+.. Click on name of the component you intend to use to display its details. The right pane fills with details of the components, such as its version and dependencies.
++
+.. Select the version you want to use in the `Component Options` box, with the `Version Release` drop-down menu.
++
+.. Click btn:[Add] in the top left.
++
+.. If you added a component by mistake, remove it by clicking the btn:[⫶] button at the far right of its entry in the right pane, and select `Remove` in the menu.
++
+[NOTE]
+====
+
+If you do not intend to select version for some components, you can skip the component details screen and version selection by clicking the btn:[+] buttons on the right side of the component list.
+
+====
+
+. Commit a new version of the blueprint with your changes:
++
+.. Click the btn:[Commit] button in top left.
++
+A pop-up window with a summary of your changes appears.
++
+.. Review your changes and confirm them by clicking btn:[Commit].
++
+A small pop-up on the right informs you of the saving progress and then result. A new version of the blueprint is created.
+
+. In the top left, click `Back to Blueprints` to exit the editing screen.
++
+The Composer view opens, listing existing blueprints.
+
+[[_creating_a_system_image_with_composer]]
+== Creating a System Image with Composer
+
+The following steps below describe creating a system image.
+
+[IMPORTANT]
+====
+
+Composer is an experimental feature in {PRODUCT}{nbsp}{PRODVER}.
+
+====
+
+[discrete]
+=== Prerequisites
+
+* You have opened the Composer Cockpit interface in a browser.
+
+* A blueprint exists.
+
+[discrete]
+=== Procedure
+. Locate the blueprint that you want to edit by entering its name or a part of it into the search box at top left, and press kbd:[Enter].
++
+The search is added to the list of filters under the text entry field, and the list of blueprints below is reduced to these that match the search.
++
+If the list of blueprints is too long, add further search terms in the same way.
+
+. On the left side of the blueprint, press the btn:[Create Image] button that belongs to the blueprint.
++
+A pop-up window appears.
+
+. Select the image type and architecture and press btn:[Create].
++
+A small pop-up in the top left informs you that the image creation has been added to the queue.
+
+. Click the name of the blueprint.
++
+A screen with details of the blueprint opens.
+
+. Click the `Images` tab to switch to it.
+
+. The image that is being created is listed with the status `Pending`.
++
+[NOTE]
+====
+
+Image creation takes a longer time, measured in minutes. There is no indication of progress while the image is created.
+
+====
++
+To abort image creation, press its btn:[Stop] button on the right.
+
+. Once the image is successfully created, the btn:[Stop] button is replaced by a btn:[Download] button. Click this button to download the image to your system.
+
+[[composer-additional-resources]]
+== Additional Resources
+
+* Upstream Weldr documentation: link:++https://weldr.io/++[https://weldr.io/]

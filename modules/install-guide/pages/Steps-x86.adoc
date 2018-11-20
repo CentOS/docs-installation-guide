@@ -29,6 +29,8 @@ An installation target is a storage device that will store {PRODUCT} and boot th
 
 * BIOS/firmware RAID devices
 
+* NVDIMM devices in sector mode on the Intel64 and AMD64 architectures, supported by the `nd_pmem` driver.
+
 * Fibre Channel Host Bus Adapters and multipath devices. Some can require vendor-provided drivers.
 
 * Xen block devices on Intel processors in Xen virtual machines.
@@ -143,6 +145,29 @@ When a pre-existing RAID array's member devices are all unpartitioned disks/driv
 You can connect and configure external USB storage after installation. Most such devices are recognized by the kernel and available for use at that time.
 
 Some USB drives might not be recognized by the installation program. If configuration of these disks at installation time is not vital, disconnect them to avoid potential problems.
+
+[[sect-installation-planning-nvdimm-x86]]
+=== NVDIMM devices
+
+To use a Non-Volatile Dual In-line Memory Module (NVDIMM) device as storage, the following conditions must be satisfied:
+
+* Version of {PRODUCT} is 7.6 or later.
+
+* The architecture of the system is Intel 64 or AMD64.
+
+* The device is configured to sector mode. Anaconda can reconfigure NVDIMM devices to this mode.
+
+* The device must be supported by the `nd_pmem` driver.
+
+Booting from a NVDIMM device is possible under the following additional conditions:
+
+* The system uses UEFI.
+
+* The device must be supported by firmware available on the system, or by a UEFI driver. The UEFI driver may be loaded from an option ROM of the device itself.
+
+* The device must be made available under a namespace.
+
+To take advantage of the high performance of NVDIMM devices during booting, place the `/boot` and `/boot/efi` directories on the device. See xref:CustomSpoke-x86.adoc#sect-custom-partitioning-x86[Manual Partitioning (x86_64)] for more information. Note that the Execute-in-place (XIP) feature of NVDIMM devices is not supported during booting and the kernel is loaded into conventional memory.
 
 [[sect-installation-planning-intel-bios-raid-sets-x86]]
 === Considerations for Intel BIOS RAID Sets

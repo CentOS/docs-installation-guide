@@ -586,6 +586,20 @@ Never specify multipath devices by device names like `mpatha`. Device names such
 
 ====
 +
+** [option]`--initlabel` - Initializes a disk (or disks) by creating a default disk label for all disks in their respective architecture that have been designated for formatting (for example, msdos for x86). Because [option]`--initlabel` can see all disks, it is important to ensure only those drives that are to be formatted are connected.
++
+[literal,subs="+quotes,verbatim"]
+....
+clearpart --initlabel --drives=names_of_disks
+....
++
+For example:
++
+[literal,subs="+quotes,verbatim,macros"]
+....
+[command]`clearpart --initlabel --drives=dasda,dasdb,dasdc`
+....
++
 ** [option]`--list=` - Specifies which partitions to clear. This option overrides the [option]`--all` and [option]`--linux` options if used. Can be used across different drives. For example:
 +
 [literal,subs="+quotes,verbatim,macros"]
@@ -1468,6 +1482,71 @@ Red{nbsp}Hat Enterprise{nbsp}Linux{nbsp}7 Networking Guide] for general informat
 +
 ** [option]`--bindto=mac` - Bind the device configuration (`ifcfg`) file on the installed system to the device MAC address (`HWADDR`) instead of the default binding to the interface name (`DEVICE`). Note that this option is independent of the [option]`--device=` option - [option]`--bindto=mac` will be applied even if the same [command]`network` command also specifies a device name, `link`, or `bootif`.
 
+[command]`nvdimm` (optional)::
++
+Performs an action on Non-Volatile Dual In-line Memory Module (NVDIMM) devices. This command uses the following format:
++
+[literal,subs="+quotes,verbatim,macros"]
+....
+[command]`nvdimm _action_ _[options]_pass:attributes[{blank}]`
+....
++
+[NOTE]
+====
+
+By default, all NVDIMM devices are ignored by the installer. You must use the [command]`nvdimm` command to enable installation on these devices.
+
+====
++
+The following actions are available:
++
+** `reconfigure` - Reconfigure a specific NVDIMM device into a given mode. Additionally, the specified device is implicitly marked as to be used, so a subsequent [command]`nvdimm use` command for the same device is redundant. This action uses the following format:
++
+[literal,subs="+quotes,verbatim,macros"]
+....
+[command]`nvdimm reconfigure [--namespace=pass:attributes[{blank}]_NAMESPACE_pass:attributes[{blank}]] [--mode=pass:attributes[{blank}]_MODE_pass:attributes[{blank}]] [--sectorsize=pass:attributes[{blank}]_SECTORSIZE_pass:attributes[{blank}]]`
+....
++
+*** [option]`--namespace=` - The device specification by namespace. For example:
++
+[literal,subs="+quotes,verbatim,macros"]
+....
+[command]`nvdimm reconfigure --namespace=namespace0.0 --mode=sector --sectorsize=512`
+....
++
+*** [option]`--mode=` - The mode specification. Currently, only the value `sector` is available.
++
+*** [option]`--sectorsize=` - Size of a sector for sector mode. For example:
++
+[literal,subs="+quotes,verbatim,macros"]
+....
+[command]`nvdimm reconfigure --namespace=namespace0.0 --mode=sector --sectorsize=512`
+....
++
+The supported sector sizes are 512 and 4096 bytes.
++
+** `use` - Specify a NVDIMM device as a target for installation. The device must be already configured to the sector mode by the [command]`nvdimm reconfigure` command. This action uses the following format:
++
+[literal,subs="+quotes,verbatim,macros"]
+....
+[command]`nvdimm use [--namespace=pass:attributes[{blank}]_NAMESPACE_|--blockdevs=pass:attributes[{blank}]_DEVICES_pass:attributes[{blank}]]`
+....
++
+*** [option]`--namespace=` - Specifies the device by namespace. For example:
++
+[literal,subs="+quotes,verbatim"]
+....
+nvdimm use --namespace=namespace0.0
+....
++
+*** [option]`--blockdevs=` - Specifies a comma-separated list of block devices corresponding to the NVDIMM devices to be used. The asterisk `*` wildcard is supported. For example:
++
+[literal,subs="+quotes,verbatim"]
+....
+nvdimm use --blockdevs=pmem0s,pmem1s
+nvdimm use --blockdevs=pmem*
+....
+
 [command]`%addon org_fedora_oscap` (optional)::
 +
 The OpenSCAP installer add-on is used to apply SCAP (Security Content Automation Protocol) content - security policies - on the installed system. When enabled, the packages necessary to provide this functionality will automatically be installed. However, by default, no policies are enforced, meaning that no checks are performed during or after installation unless specifically configured.
@@ -1698,7 +1777,7 @@ Never specify multipath devices by device names like `mpatha`. Device names such
 
 ====
 +
-** Forces the partition to be allocated as a _primary_ partition. If the partition cannot be allocated as primary (usually due to too many primary partitions being already allocated), the partitioning process fails. This option only makes sense when the disk uses a Master Boot Record (MBR); for GUID Partition Table (GPT)-labeled disks this option has no meaning. For information about primary (and extended) partitions, see xref:Partitions-x86.adoc#sect-disk-partitions-basics[Partitions: Turning One Drive Into Many].
+** [option]`--asprimary` - Forces the partition to be allocated as a _primary_ partition. If the partition cannot be allocated as primary (usually due to too many primary partitions being already allocated), the partitioning process fails. This option only makes sense when the disk uses a Master Boot Record (MBR); for GUID Partition Table (GPT)-labeled disks this option has no meaning. For information about primary (and extended) partitions, see xref:Partitions-x86.adoc#sect-disk-partitions-basics[Partitions: Turning One Drive Into Many].
 +
 ** [option]`--fsprofile=` - Specifies a _usage type_ to be passed to the program that makes a filesystem on this partition. A usage type defines a variety of tuning parameters to be used when making a filesystem. For this option to work, the filesystem must support the concept of usage types and there must be a configuration file that lists valid types. For `ext2`, `ext3`, `ext4`, this configuration file is `/etc/mke2fs.conf`.
 +
@@ -1937,7 +2016,7 @@ Use of the [command]`reboot` option _might_ result in an endless installation lo
 
 ====
 +
-** [command]`--eject` - Attempt to eject the installation DVD (if installing from a DVD) before rebooting.
+** [command]`--eject` - Attempt to eject the bootable media (DVD, USB, or other media) before rebooting.
 +
 ** [command]`--kexec` - Uses the [application]*kexec* system call instead of performing a full reboot, which immediately loads the installed system into memory, bypassing the hardware initialization normally performed by the BIOS or firmware.
 +

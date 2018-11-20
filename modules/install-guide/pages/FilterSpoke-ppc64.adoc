@@ -65,7 +65,7 @@ Any storage devices that you do not select on this screen are hidden from [appli
 When you have selected the storage devices to make available during installation, click btn:[Done] to return to the Installation Destination screen.
 
 [[sect-advanced-storage-options-ppc]]
-=== Advanced Storage Options
+== Advanced Storage Options
 
 To use an advanced storage device, you can configure an _iSCSI_ (SCSI over TCP/IP) target or _FCoE_ (Fibre Channel over Ethernet) _SAN_ (Storage Area Network) by clicking the appropriate button in the lower right corner of the Installation Destination screen. See xref:iSCSI.adoc#appe-iscsi-disks[iSCSI Disks] for an introduction to iSCSI.
 
@@ -74,9 +74,9 @@ To use an advanced storage device, you can configure an _iSCSI_ (SCSI over TCP/I
 image::{imagesdir}/storagedevices/searchstoragedevices.png[Advanced Storage Options]
 
 [[sect-advanced-storage-iscsi-ppc]]
-==== Configure iSCSI Parameters
+=== Configure iSCSI Parameters
 
-When you have clicked the `Add iSCSI target...` button, the `Add iSCSI Storage Target` dialog appears.
+When you click the `Add iSCSI target...` button, the `Add iSCSI Storage Target` dialog appears.
 
 .The iSCSI Discovery Details Dialog
 
@@ -139,9 +139,9 @@ image::{imagesdir}/diskpartadvanced/iscsi-discovered-nodes.png[The Dialog of Dis
 . Click btn:[Log In] to initiate an iSCSI session.
 
 [[sect-advanced-storage-fcoe-ppc]]
-==== Configure FCoE Parameters
+=== Configure FCoE Parameters
 
-When you have clicked the `Add FCoE SAN...` button, a dialog appears for you to configure network interfaces for discovering FCoE storage devices.
+When you click the `Add FCoE SAN...` button, a dialog appears for you to configure network interfaces for discovering FCoE storage devices.
 
 First, select a network interface that is connected to a FCoE switch in the `NIC` drop-down menu and click the btn:[Add FCoE disk(s)] button to scan the network for SAN devices.
 

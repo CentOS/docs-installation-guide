@@ -29,7 +29,10 @@ To connect automatically to an iSCSI target, a network device for accessing the 
 
 . You can discover and add iSCSI targets manually in the graphical user interface in [application]*anaconda*. From the main menu, the Installation Summary screen, click the Installation Destination option. Then click the btn:[Add a disk] in the `Specialized & Network Disks` section of the screen. A tabbed list of available storage devices appears. In the lower right corner, click the btn:[Add iSCSI Target] button and proceed with the discovery process. See xref:FilterSpoke-x86.adoc#sect-storage-device-selection-x86[The Storage Devices Selection Screen (x86)] for more information.
 +
-The `/boot` partition cannot be placed on iSCSI targets which have been added manually using this method - an iSCSI target containing a `/boot` partition must be configured for use with iBFT.
+[IMPORTANT]
+====
+Restriction: The `/boot` partition cannot be placed on iSCSI targets which have been added manually using this method - an iSCSI target containing a `/boot` partition must be configured for use with iBFT.
+====
 
 While [application]*Anaconda* uses [application]*iscsiadm* to find and log into iSCSI targets, [application]*iscsiadm* automatically stores any information about these targets in the iscsiadm iSCSI database. [application]*Anaconda* then copies this database to the installed system and marks any iSCSI targets not used for `/` so that the system will automatically log in to them when it starts. If `/` is placed on an iSCSI target, [application]*initrd* will log into this target and [application]*Anaconda* does not include this target in start up scripts to avoid multiple attempts to log into the same target.
 
