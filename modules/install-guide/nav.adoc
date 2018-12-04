@@ -85,4 +85,4 @@
 ** xref:techref.adoc[Other Technical Documentation]
 ** xref:ext4_to_xfs_command_reference_table.adoc[Reference Table for ext4 and XFS Commands]
 ** xref:data_size_appendix.adoc[Data Size Terminology Reference Table]
-** xref:Revision_History.adoc[Revision History]
+* xref:Revision_History.adoc[Revision History]
