@@ -1,6 +1,6 @@
 # CentOS Installation Guide
 
-This repository contains the sources that make up the [https://docs.centos.org/en-US/centos/install-guide/](CentOS Installation Guide). Please report Issues and submit Pull Requests for **Content Fixes** here. For other issues or fixes, use:
+This repository contains the sources that make up the [CentOS Installation Guide](https://docs.centos.org/en-US/centos/install-guide/). Please report Issues and submit Pull Requests for **Content Fixes** here. For other issues or fixes, use:
 
 * [CentOS_Docs](https://github.com/CentOS/docs) - the builder repository for the entire website, including for example structure configuration
 * [CentOS_Docs_Web_UI](https://github.com/CentOS/docs-web-ui) - the website's user interface (e.g. CSS styling) sources
