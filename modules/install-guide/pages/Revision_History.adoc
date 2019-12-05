@@ -8,6 +8,12 @@ include::{partialsdir}/entities.adoc[]
 
 Note that revision numbers relate to the edition of this manual, not to version numbers of {PRODUCT}.
 
+`1.2`:: Thu Dec 5 2019, Petr Bokoč (pbokoc@redhat.com)
+
+* Update for CentOS 7.7.1908, based on the Red Hat Enterprise Linux 7.7 Installation Guide
+* Removed the Composer chapter as it was moved from the original RHEL docs into a separate document
+* Various small improvements
+
 `1.1`:: Tue Nov 20 2018, Petr Bokoč (pbokoc@redhat.com)
 
 * Update for CentOS 7.6.1810, based on the Red Hat Enterprise Linux 7.6 Installation Guide
