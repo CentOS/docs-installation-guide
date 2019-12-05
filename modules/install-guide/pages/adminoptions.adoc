@@ -67,7 +67,7 @@ The target must be either:
 +
 ** a DVD (a physical disk present in the system's DVD drive)
 +
-** an ISO image of the full {PRODUCT} installation DVD, placed on a hard drive or a network location accessible from the installation system
+** an ISO image of the full {PRODUCT} installation DVD, placed on a hard drive or a network location accessible from the installation system (requires specifying _NFS Server_ as the installation source)
 +
 This option allows for the configuration of different installation methods using different formats. The syntax is described in the table below.
 +

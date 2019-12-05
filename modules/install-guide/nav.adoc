@@ -72,7 +72,6 @@
 ** xref:headless-installations.adoc[Headless Systems]
 ** xref:Kickstart2.adoc[Kickstart Installations]
 ** xref:disk-image-install.adoc[Installing into a Disk Image]
-** xref:Composer.adoc[Building Custom System Images with Composer]
 * xref:Part_After_Install.adoc[After Installation]
 ** xref:InitialSetupHub-common.adoc[Initial Setup]
 ** xref:nextsteps.adoc[Your Next Steps]

@@ -175,11 +175,13 @@ Discovered FCoE devices will be displayed under the `Other SAN Devices` tab in t
 [[sect-advanced-storage-nvdimm-x86]]
 === Configuring NVDIMM Devices
 
-When you click the `Reconfigure NVDIMM` button, a dialog appears for you to reconfigure the selected NVDIMM devices into sector mode. The reconfiguration lets you use this NVDIMM device as an installation destination.
+Click the btn:[Reconfigure NVDIMM] button to reconfigure the selected NVDIMM device into sector mode and use it as an installation destination. The btn:[Sector size] drop-down list contains the supported sector sizes of `512` and `4096`.
+
+From the btn:[Sector size] drop-down list, select the sector size and click the btn:[Start Reconfiguration] button.
 
 .Reconfigure NVDIMM
 
-image::{imagesdir}/diskpartadvanced/nvdimm-reconfigure.png[Reconfigure NVDIMM]
+image::{imagesdir}/diskpartadvanced/nvdimm-reconfigure2.png[Reconfigure NVDIMM]
 
 [WARNING]
 ====
@@ -188,12 +190,10 @@ Reconfiguration of a NVDIMM device process destroys any data stored on the devic
 
 ====
 
-Select the sector size and press the btn:[Start reconfiguration] button. The supported sector sizes are 512 and 4096 bytes.
-
-Once the device is configured, press btn:[OK] to return to the Installation Destination screen.
+When the device is configured, press btn:[OK] to return to the Installation Destination screen.
 
 .Successfully reconfigured NVDIMM
 
-image::{imagesdir}/diskpartadvanced/nvdimm-reconfigure-success.png[Successfully reconfigured NVDIMM]
+image::{imagesdir}/diskpartadvanced/nvdimm-reconfigure-success2.png[Successfully reconfigured NVDIMM]
 
-NVDIMM devices in sector mode will be displayed under the `NVDIMM Devices` tab in the Installation Destination screen and can now be selected for installation.
+NVDIMM devices in sector mode are displayed under the btn:[NVDIMM Devices] tab in the btn:[Installation Destination] window and are available for installation.

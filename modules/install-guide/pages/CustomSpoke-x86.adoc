@@ -122,6 +122,11 @@ This limitation only applies to `/usr` or `/var`, not to directories below them.
 
 * `LVM thin provisioning` - Using thin provisioning, you can manage a storage pool of free space, known as a thin pool, which can be allocated to an arbitrary number of devices when needed by applications. The thin pool can be expanded dynamically when needed for cost-effective allocation of storage space. For more information regarding LVM, see the link:++https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Logical_Volume_Manager_Administration/index.html++[Red{nbsp}Hat Enterprise{nbsp}Linux{nbsp}7 Logical Volume Manager Administration] guide.
 +
+[WARNING]
+====
+Anaconda does not support overprovisioned LVM thin pools.
+====
++
 [NOTE]
 ====
 
