@@ -12,7 +12,7 @@ The link:++https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linu
 [IMPORTANT]
 ====
 
-Applying a security policy is not necessary on all systems. This screen should only be used when a specific policy is mandated by your organization rules or governemnt regulations.
+Applying a security policy is not necessary on all systems. This screen should only be used when a specific policy is mandated by your organization rules or government regulations.
 
 ====
 
