@@ -65,7 +65,7 @@ Note the `TARGET` column. Next, use the [command]`umount _target_` command to un
 +
 [literal,subs="+quotes,verbatim,macros"]
 ....
-`# dd if=/image_directory/image.iso of=/dev/device bs=blocksize`
+`# dd if=/image_directory/image.iso of=/dev/device bs=blocksize status=progress`
 ....
 +
 Replace _/image_directory/image.iso_ with the full path to the ISO image file you downloaded, _device_ with the device name as reported by the [command]`dmesg` command earlier, and _blocksize_ with a reasonable block size (for example, `512k`) to speed up the writing process. The [option]`bs` parameter is optional, but it can speed up the process considerably.
@@ -81,7 +81,7 @@ For example, if the ISO image is located in `/home/testuser/Downloads/{PRODUCT}-
 +
 [literal,subs="+quotes,attributes,verbatim,macros"]
 ....
-`# dd if=/home/testuser/Downloads/{PRODUCT}-server-x86_64-boot.iso of=/dev/sdb bs=512k`
+`# dd if=/home/testuser/Downloads/{PRODUCT}-server-x86_64-boot.iso of=/dev/sdb bs=512k status=progress`
 ....
 
 . Wait for [command]`dd` to finish writing the image to the device. Note that no progress bar is displayed; the data transfer is finished when the `#` prompt appears again. After the prompt is displayed, log out from the `root` account and unplug the USB drive.
