@@ -59,7 +59,7 @@ When you do this, the icon for the flash drive disappears from your desktop. If 
 +
 [literal,subs="+quotes,verbatim,macros"]
 ....
-$ [command]`sudo dd if=pass:attributes[{blank}]_/path/to/image.iso_ of=/dev/rdiskpass:attributes[{blank}]_number_ bs=1m>`
+$ [command]`sudo dd if=pass:attributes[{blank}]_/path/to/image.iso_ of=/dev/rdiskpass:attributes[{blank}]_number_ bs=1m`
 ....
 +
 [NOTE]
