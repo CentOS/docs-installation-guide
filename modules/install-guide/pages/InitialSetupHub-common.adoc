@@ -22,6 +22,11 @@ After you started a new {PRODUCT} system the first time, the [application]*Initi
 +
 ** the [package]*kde-desktop* group
 
+[NOTE]
+====
+The Initial Setup application in graphical mode only launches for a system with a graphical output. If you install Red Hat Enterprise Linux system with an environment that includes Initial Setup (like "Server with a GUI", "GNOME Desktop" or "KDE Plasma Workspaces) in a system that has no graphic card, the Initial Setup application launches in text mode.
+====
+
 [discrete]
 == Options in the Initial Setup
 The [application]*Initial Setup* application can display the following options:

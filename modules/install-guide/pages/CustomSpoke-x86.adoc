@@ -303,7 +303,22 @@ Optimal partition setup depends on the usage for the Linux system in question. U
 
 * Consider encrypting any partitions that might contain sensitive data. Encryption prevents unauthorized people from accessing the data on the partitions, even if they have access to the physical storage device. In most cases, you should at least encrypt the `/home` partition.
 
-* Each kernel installed on your system requires approximately 20{nbsp}MiB on the `/boot` partition. The default partition size of 1{nbsp}GiB for `/boot` should suffice for most common uses; increase the size of this partition if you plan to keep many kernels installed at the same time.
+* Each kernel installed on your system requires approximately 56 MB on the `/boot` partition.
++
+** 32 MB `initramfs`
++
+** 14 MB `kdump` `initramfs`
++
+** 3.5 MB system map
++
+** 6.6 MB `vmlinuz`
++
+[NOTE]
+====
+For rescue mode, `initramfs` and `vmlinuz` require 80 MB.
+====
++
+The default partition size for `/boot` should suffice for most common uses. However, it is recommended that you increase the size of this partition if you are planning on retaining multiple kernel releases or errata kernels.
 
 * The `/var` directory holds content for a number of applications, including the [application]*Apache* web server. It also is used to store downloaded update packages on a temporary basis. Ensure that the partition containing the `/var` directory has enough space to download pending updates and hold your other content.
 

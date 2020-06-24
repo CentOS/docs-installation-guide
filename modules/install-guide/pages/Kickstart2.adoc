@@ -411,7 +411,7 @@ Ensure your system is not at risk of attack before disabling any of the vulnerab
 
 ====
 +
-** [option]`--boot-drive=` - Specifies which drive the boot loader should be written to, and therefore which drive the computer will boot from. If you use a multipath device as the boot drive, specify only one member of the device.
+** [option]`--boot-drive=` - Specifies which drive the boot loader should be written to, and therefore which drive the computer will boot from. If you use a multipath device as the boot drive, specify the device using its `disk/by-id/dm-uuid-mpath-WWID` name.
 +
 ** [option]`--leavebootorder` - The installer will add {PRODUCT}{nbsp}{PRODVER} to the top of the list of installed systems in the boot loader, and preserve all existing entries as well as their order.
 +
@@ -722,6 +722,8 @@ Specify the firewall configuration for the installed system.
 +
 ** [option]`--enabled` or [option]`--enable` - Reject incoming connections that are not in response to outbound requests, such as DNS replies or DHCP requests. If access to services running on this machine is needed, you can choose to allow specific services through the firewall.
 +
+** [option]`--remove-service` - Do not allow services through the firewall.
++
 ** [option]`--disabled` or [option]`--disable` - Do not configure any iptables rules.
 +
 ** [option]`--trust=` - Listing a device here, such as em1, allows all traffic coming to and from that device to go through the firewall. To list more than one device, use [option]`--trust em1 --trust em2`. Do NOT use a comma-separated format such as [option]`--trust em1, em2`.
@@ -828,13 +830,6 @@ To ignore a multipath device that does not use _logical volume management_ (LVM)
 [command]`ignoredisk --drives=disk/by-id/dm-uuid-mpath-2416CD96995134CA5D787F00A5AA11017`
 ....
 +
-Multipath devices that use LVM are not assembled until after [application]*Anaconda* has parsed the Kickstart file. Therefore, you cannot specify these devices in the format `dm-uuid-mpath`. Instead, to ignore a multipath device that uses LVM, use the format `disk/by-id/scsi-_WWID_pass:attributes[{blank}]`, where _WWID_ is the _world-wide identifier_ for the device. For example, to ignore a disk with WWID `58095BEC5510947BE8C0360F604351918`, use:
-+
-[literal,subs="+quotes,verbatim,macros"]
-....
-[command]`ignoredisk --drives=disk/by-id/scsi-58095BEC5510947BE8C0360F604351918`
-....
-+
 [WARNING]
 ====
 
@@ -860,7 +855,8 @@ To include a multipath device that uses LVM:
 +
 [literal,subs="+quotes,verbatim,macros"]
 ....
-[command]`ignoredisk --only-use=disk/by-id/scsi-58095BEC5510947BE8C0360F604351918`
+[command]`ignoredisk --only-use=/dev/disk/by-id/dm-uuid-mpath-2416CD96995134CA5D787F00A5AA11017`
+[command]`bootloader --location=mbr`
 ....
 +
 ** [option]`--interactive` - Allows you to manually navigate the advanced storage screen.
@@ -1161,6 +1157,11 @@ The options are as follows:
 ** [option]`--label=` - Sets a label for the logical volume.
 +
 ** [option]`--grow` - Tells the logical volume to grow to fill available space (if any), or up to the maximum size setting, if one is specified. A minimum size must be given, using either the [option]`--percent=` option or the [option]`--size=` option.
++
+[NOTE]
+====
+For more information about allocating space when writing to an image file, see section **Host Storage** describing **Image files** in the link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_getting_started_guide/sec-virtualization_getting_started-products-storage[Red&nbsp;Hat Enterprise&nbsp;Linux&nbsp;7 Storage Administration Guide].
+====
 +
 ** [option]`--size=` - The size of the logical volume in MiB. This option cannot be used together with the [option]`--percent=` option.
 +
@@ -1721,7 +1722,7 @@ If the [option]`--size` value is too small, the installation fails. Set the [opt
 
 ====
 +
-** [option]`--grow` - Tells the logical volume to grow to fill available space (if any), or up to the maximum size setting, if one is specified.
+** [option]`--grow` - Tells the partition to grow to fill available space (if any), or up to the maximum size setting, if one is specified.
 +
 [NOTE]
 ====
@@ -1734,7 +1735,7 @@ If you use [option]`--grow=` without setting [option]`--maxsize=` on a swap part
 +
 ** [option]`--noformat` - Specifies that the partition should not be formatted, for use with the [option]`--onpart` command.
 +
-** [option]`--onpart=` or [option]`--usepart=` - Specifies the device on which to place the partition. For example:
+** [option]`--onpart=` or [option]`--usepart=` -  Uses existing blank device and format it to the new specified type. For example:
 +
 [literal,subs="+quotes,verbatim,macros"]
 ....
@@ -1754,20 +1755,13 @@ The device must already exist on the system; the [option]`--onpart` option will 
 +
 It is also possible to specify an entire drive, rather than a partition, in which case [application]*Anaconda* will format and use the drive without creating a partition table. Note, however, that installation of GRUB2 is not supported on a device formatted in this way, and must be placed on a drive with a partition table.
 +
-** [option]`--ondisk=` or [option]`--ondrive=` - Forces the partition to be created on a particular disk. For example, [option]`--ondisk=sdb` puts the partition on the second SCSI disk on the system.
+** [option]`--ondisk=` or [option]`--ondrive=` - Creates a partition (specified by the part command) on an existing disk. This command always creates a partition. For example, [option]`--ondisk=sdb` puts the partition on the second SCSI disk on the system.
 +
 To specify a multipath device that does not use _logical volume management_ (LVM), use the format `disk/by-id/dm-uuid-mpath-_WWID_pass:attributes[{blank}]`, where _WWID_ is the _world-wide identifier_ for the device. For example, to specify a disk with WWID `2416CD96995134CA5D787F00A5AA11017`, use:
 +
 [literal,subs="+quotes,verbatim,macros"]
 ....
 [command]`part / --fstype=xfs --grow --asprimary --size=8192 --ondisk=disk/by-id/dm-uuid-mpath-2416CD96995134CA5D787F00A5AA11017`
-....
-+
-Multipath devices that use LVM are not assembled until after [application]*Anaconda* has parsed the Kickstart file. Therefore, you cannot specify these devices in the format `dm-uuid-mpath`. Instead, to specify a multipath device that uses LVM, use the format `disk/by-id/scsi-_WWID_pass:attributes[{blank}]`, where _WWID_ is the _world-wide identifier_ for the device. For example, to specify a disk with WWID `58095BEC5510947BE8C0360F604351918`, use:
-+
-[literal,subs="+quotes,verbatim,macros"]
-....
-[command]`part / --fstype=xfs --grow --asprimary --size=8192 --ondisk=disk/by-id/scsi-58095BEC5510947BE8C0360F604351918`
 ....
 +
 [WARNING]
@@ -1828,41 +1822,6 @@ If partitioning fails for any reason, diagnostic messages appear on virtual cons
 
 ====
 
-[command]`pwpolicy` (optional)::
-+
-This command can be used to enforce a custom password policy, which specifies requirements for passwords created during installation, based on factors such as password length and strength.
-+
-[literal,subs="+quotes,verbatim,macros"]
-....
-[command]`pwpolicy _name_ [--minlen=pass:attributes[{blank}]_length_pass:attributes[{blank}]] [--minquality=pass:attributes[{blank}]_quality_pass:attributes[{blank}]] [--strict|--nostrict] [--emptyok|--noempty] [--changesok|--nochanges]`
-....
-+
-Replace _name_ with either `root`, `user` or `luks` to enforce the policy for the `root` password, user passwords, or LUKS passphrase, respectively.
-+
-The `libpwquality` library is used to check minimum password requirements (length and quality). You can use the [command]`pwscore` and [command]`pwmake` commands provided by the [package]*libpwquality* package to check the quality score of a password, or to create a random password with a given score. See the `pwscore(1)` and `pwmake(1)` man page for details about these commands.
-+
-[IMPORTANT]
-====
-
-This command can only be used inside the [command]`%anaconda` section.
-
-====
-+
-** [option]`--minlen=` - Sets the minimum allowed password length, in characters. The default is `6`.
-+
-** [option]`--minquality=` - Sets the minimum allowed password quality as defined by the `libpwquality` library. The default value is `1`.
-+
-** [option]`--strict` - Enables strict password enforcement. Passwords which do not meet the requirements specified in [option]`--minquality=` and [option]`--minlen=` will not be accepted. This option is disabled by default.
-+
-** [option]`--notstrict` - Passwords which do _not_ meet the minimum quality requirements specified by the [option]`--minquality=` and [option]`-minlen=` options will be allowed, after `Done` is clicked twice.
-+
-** [option]`--emptyok` - Allows the use of empty passwords. Enabled by default for user passwords.
-+
-** [option]`--notempty` - Disallows the use of empty passwords. Enabled by default for the root password and the LUKS passphrase.
-+
-** [option]`--changesok` - Allows changing the password in the user interface, even if the Kickstart file already specifies a password. Disabled by default.
-+
-** [option]`--nochanges` - Disallows changing passwords which are already set in the Kickstart file. Enabled by default.
 
 [command]`poweroff` (optional)::
 +
@@ -2225,6 +2184,8 @@ This generates a sha512 crypt-compatible hash of your password using a random sa
 +
 ** [option]`--lock` - If this option is present, this account is locked by default. This means that the user will not be able to log in from the console.
 +
+** [option]`--ssh` - If this is option is present, then the _password_ string is interpreted as an ssh key value.
++
 [IMPORTANT]
 ====
 
@@ -2247,7 +2208,7 @@ To simply disable root `ssh` access, use the following:
 
 [literal,subs="+quotes,verbatim,macros"]
 ....
-[command]`sshpw --username=root --lock`
+[command]`sshpw --username=root example_password --lock`
 ....
 
 ====
@@ -2427,7 +2388,7 @@ It is currently not possible to specify [application]*KDE* as your default deskt
 [[sect-kickstart-commands-zerombr,zerombr (optional)]]
 [command]`zerombr` (optional)::
 +
-If [command]`zerombr` is specified, any invalid partition tables found on disks are initialized. This destroys all of the contents of disks with invalid partition tables. This command is required when performing an unattended installation on a system with previously initialized disks.
+The [command]`zerombr` initializes any invalid partition tables that are found on disks and destroys all of the contents of disks with invalid partition tables.  This command is required when performing an installation on an IBM Z system with unformatted Direct Access Storage Device (DASD) disks, otherwise the unformatted  disks are not formatted and used during the installation.
 
 [command]`zfcp` (optional)::
 +
@@ -2592,20 +2553,24 @@ Specify a list of languages to install. Note that this is different from package
 
 [option]`--multilib`::
 +
-Configure the installed system for multilib packages (that is, to allow installing 32-bit packages on a 64-bit system) and install packages specified in this section as such.
+Configure the installed system for multilib packages, to allow installing 32-bit packages on a 64-bit system, and install packages specified in this section as such.
 +
-Normally, on an AMD64 and Intel 64 system, only packages for this architecture (marked as `x86_64`) and packages for all architectures (marked as `noarch`) would be installed. When you use this option, packages for 32-bit AMD and Intel systems (marked as `i686`) are automatically installed as well, if available.
+Normally, on an AMD64 and Intel 64 system, only packages for this aNormally, on an AMD64 and Intel 64 system, you can install only the `x86_64` and the `noarch` packages. However, with the `--multilib` option, you can automatically install the 32-bit AMD and the i686 Intel system packages available, if any.
 +
 This only applies to packages explicitly specified in the [command]`%packages` section. Packages which are only being installed as dependencies without being specified in the Kickstart file are only installed in architecture versions in which they are needed, even if they are available for more architectures.
++
+This option only works during the installation. Already installed systems are not configured for `multilib` packages installation using the `dnf` command.
 
 [option]`--nocore`::
 +
-Disables installation of the `@Core` package group which is otherwise always installed by default. Disabling the `@Core` package group should be only used for creating lightweight containers; installing a desktop or server system with [option]`--nocore` will result in an unusable system.
+Disables installation of the `@Core` package group which is otherwise always installed by default. Disabling the `@Core` package group with [option]`--nocore` should be only used for creating lightweight containers; installing a desktop or server system will result in an unusable system.
 +
 [NOTE]
 ====
 
-Using `-@Core` to exclude packages in the `@Core` package group does not work. The only way to exclude the `@Core` package group is with the [option]`--nocore` option.
+* Using `-@Core` to exclude packages in the `@Core` package group does not work. The only way to exclude the `@Core` package group is with the `--nocore` option.
++
+* The `@Core` package group is defined as a minimal set of packages needed for installing a working system. It is not related in any way to core packages as defined in the link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/package_manifest/package_lists_base_repository#Base-Server[Package Manifest] and link:https://access.redhat.com/support/offerings/production/scope_moredetail[Scope of Coverage Details].
 
 ====
 
@@ -2979,7 +2944,7 @@ The following is an example showing how to prompt the user for input, and then r
 
 [literal,subs="+quotes,verbatim,macros"]
 ....
-
+[command]`%pre`
 [command]`exec < /dev/tty6 > /dev/tty6 2> /dev/tty6`
 [command]`chvt 6`
 [command]`IFS=$'\n'`
@@ -2990,7 +2955,7 @@ The following is an example showing how to prompt the user for input, and then r
 [command]`echo`
 [command]`chvt 1`
 [command]`exec < /dev/tty1 > /dev/tty1 2> /dev/tty1`
-
+[command]`%end`
 ....
 
 Due to the way Kickstart operates, the script must switch to a new virtual terminal before reading input from the user. This is accomplished by the [command]`exec < /dev/tty6 > /dev/tty6 2> /dev/tty6` and [command]`chvt 6` commands. The [command]`read USERINPUT` reads input from the user until enter is pressed, and stores it in the variable `USERINPUT`. The [command]`echo -n "You entered:" "$USERINPUT"` command displays the text `You entered:` followed by the user's input. Finally, the [command]`chvt 1` and [command]`exec < /dev/tty1 > /dev/tty1 2> /dev/tty1` commands switch back to the original terminal and allow Kickstart to continue installation.

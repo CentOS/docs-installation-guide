@@ -1,0 +1,47 @@
+
+:experimental:
+include::{partialsdir}/entities.adoc[]
+
+[[commands-for-anaconda]]
+= Anaconda UI specific commands
+
+[[command-anaconda]]
+== Commands used in Anaconda
+
+The `pwpolicy` command is an Anaconda UI specific command that can be used only in the `%anaconda` section of the kickstart file.
+
+[command]`pwpolicy` (optional)::
++
+This command can be used to enforce a custom password policy, which specifies requirements for passwords created during installation, based on factors such as password length and strength.
++
+[literal,subs="+quotes,verbatim,macros"]
+....
+[command]`pwpolicy _name_ [--minlen=pass:attributes[{blank}]_length_pass:attributes[{blank}]] [--minquality=pass:attributes[{blank}]_quality_pass:attributes[{blank}]] [--strict|--nostrict] [--emptyok|--noempty] [--changesok|--nochanges]`
+....
++
+Replace _name_ with either `root`, `user` or `luks` to enforce the policy for the `root` password, user passwords, or LUKS passphrase, respectively.
++
+The `libpwquality` library is used to check minimum password requirements (length and quality). You can use the [command]`pwscore` and [command]`pwmake` commands provided by the [package]*libpwquality* package to check the quality score of a password, or to create a random password with a given score. See the `pwscore(1)` and `pwmake(1)` man page for details about these commands.
++
+[IMPORTANT]
+====
+
+This command can only be used inside the [command]`%anaconda` section.
+
+====
++
+** [option]`--minlen=` - Sets the minimum allowed password length, in characters. The default is `6`.
++
+** [option]`--minquality=` - Sets the minimum allowed password quality as defined by the `libpwquality` library. The default value is `1`.
++
+** [option]`--strict` - Enables strict password enforcement. Passwords which do not meet the requirements specified in [option]`--minquality=` and [option]`--minlen=` will not be accepted. This option is disabled by default.
++
+** [option]`--notstrict` - Passwords which do _not_ meet the minimum quality requirements specified by the [option]`--minquality=` and [option]`-minlen=` options will be allowed, after `Done` is clicked twice.
++
+** [option]`--emptyok` - Allows the use of empty passwords. Enabled by default for user passwords.
++
+** [option]`--notempty` - Disallows the use of empty passwords. Enabled by default for the root password and the LUKS passphrase.
++
+** [option]`--changesok` - Allows changing the password in the user interface, even if the Kickstart file already specifies a password. Disabled by default.
++
+** [option]`--nochanges` - Disallows changing passwords which are already set in the Kickstart file. Enabled by default.

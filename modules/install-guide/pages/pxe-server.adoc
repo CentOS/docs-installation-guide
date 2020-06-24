@@ -239,6 +239,11 @@ The following procedure will prepare the PXE server for booting UEFI-based AMD64
 .Configuring TFTP Boot for UEFI-based Systems
 . Install the [package]*tftp-server* package. To do this, enter the following command as `root`:
 +
+[NOTE]
+====
+{PRODUCT} {PRODVER} UEFI PXE boot supports a lowercase file format for a MAC-based grub menu file. For example, the MAC address file format for grub2 is `grub.cfg-01-aa-bb-cc-dd-ee-ff`.
+====
++
 [literal,subs="+quotes,verbatim,macros"]
 ....
 # [command]`yum install tftp-server`

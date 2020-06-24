@@ -8,6 +8,13 @@ include::{partialsdir}/entities.adoc[]
 
 Note that revision numbers relate to the edition of this manual, not to version numbers of {PRODUCT}.
 
+`1.2`:: Thu Jun 25 2020, Petr Bokoč (pbokoc@redhat.com)
+
+* Update for CentOS 7.8.2003, based on the Red Hat Enterprise Linux 7.8 Installation Guide
+* Added a chapter on Anaconda commands
+* Singificant additions to the Quick Installation Guide chapter
+* Various small improvements
+
 `1.2`:: Thu Dec 5 2019, Petr Bokoč (pbokoc@redhat.com)
 
 * Update for CentOS 7.7.1908, based on the Red Hat Enterprise Linux 7.7 Installation Guide

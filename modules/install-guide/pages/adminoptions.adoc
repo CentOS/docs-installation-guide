@@ -357,7 +357,7 @@ In the above tables, the _ip_ parameter specifies the client's IP address. `IPv6
 +
 The _gateway_ parameter is the default gateway. IPv6 addresses are accepted here as well.
 +
-The _netmask_ parameter is the netmask to be used. This can either be a full netmask (for example `255.255.255.0`) or a prefix (for example `64`).
+The _netmask_ parameter is the netmask to be used. This can either be a full netmask for IPv4 (for example `255.255.255.0`) or a prefix for IPv6 (for example `64`).
 +
 The _hostname_ parameter is the host name of the client system. This parameter is optional.
 
@@ -622,7 +622,7 @@ Select network device to be used at early stage of installation. Different value
 |Value|Current behavior
 |Not present|Activation of all devices is attempted using `dhcp`, unless the desired device and configuration is specified by the [option]`ip=` option or the [option]`BOOTIF` option.
 |[option]`ksdevice=link`|Similar to the above, with the difference that network will always be activated in the initramfs, whether it is needed or not. The supported [option]`rd.neednet` [application]*dracut* option should be used to achieve the same result.
-|[option]`ksdevice=bootif`|Ignored (the BOOTID= option is used by default when specified)
+|[option]`ksdevice=bootif`|Ignored (the BOOTIF= option is used by default when specified)
 |[option]`ksdevice=ibft`|Replaced with the [option]`ip=ibft` [application]*dracut* option
 |[option]`ksdevice=pass:attributes[{blank}]_MAC_pass:attributes[{blank}]`|Replaced with [option]`BOOTIF=pass:attributes[{blank}]_MAC_pass:attributes[{blank}]`
 |[option]`ksdevice=pass:attributes[{blank}]_device_pass:attributes[{blank}]`|Replaced by specifying the device name using the [option]`ip=` [application]*dracut* option.
