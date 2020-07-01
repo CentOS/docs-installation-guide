@@ -43,7 +43,7 @@ image::{imagesdir}/partitions/formatted-drive.png[Image of a formatted disk driv
 
 As the previous diagram implies, the order imposed by a file system involves some trade-offs:
 
-* A small percentage of the driver's available space is used to store file system-related data and can be considered as overhead.
+* A small percentage of the drive's available space is used to store file system-related data and can be considered as overhead.
 
 * A file system splits the remaining space into small, consistently-sized segments. For Linux, these segments are known as _blocks_.
 footnote:[Blocks really _are_ consistently sized, unlike our illustrations. Keep in mind, also, that an average disk drive contains thousands of blocks. The picture is simplified for the purposes of this discussion.]
