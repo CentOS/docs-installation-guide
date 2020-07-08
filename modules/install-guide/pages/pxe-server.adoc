@@ -203,12 +203,12 @@ The [option]`inst.repo=` [application]*Anaconda* option, shown in the example ab
 
 ====
 
-. Create a subdirectory to store the boot image files within the `/var/lib/tftpboot/` directory, and copy the boot image files to it. In this example, we use the directory `/var/lib/tftpboot/images/{PRODUCT}-{PRODVER}/`:
+. Create a subdirectory to store the boot image files within the `/var/lib/tftpboot/` directory, and copy the boot image files to it. In this example, we use the directory `/var/lib/tftpboot/pxelinux/images/{PRODUCT}-{PRODVER}/`:
 +
 [literal,subs="+quotes,attributes,verbatim,macros"]
 ....
 # [command]`mkdir -p /var/lib/tftpboot/images/{PRODUCT}-{PRODVER}/`
-# [command]`cp /path-to-x86-64-images/pxeboot/{vmlinuz,initrd.img} /var/lib/tftpboot/images/{PRODUCT}-{PRODVER}/`
+# [command]`cp /path-to-x86-64-images/pxeboot/{vmlinuz,initrd.img} /var/lib/tftpboot/pxelinux/images/{PRODUCT}-{PRODVER}/`
 ....
 
 . Finally, start and enable the services:
