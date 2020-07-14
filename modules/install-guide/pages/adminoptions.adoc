@@ -342,7 +342,7 @@ The [option]`method` parameter can be any the following:
 [NOTE]
 ====
 
-If you use a boot option which requires network access, such as [option]`inst.ks=http://pass:attributes[{blank}]_host_:/pass:attributes[{blank}]_path_pass:attributes[{blank}]`, without specifying the [option]`ip` option, the installation program will use [option]`ip=dhcp`.
+If you use a boot option which requires network access, such as [option]`inst.ks=http://pass:attributes[{blank}]_host_/pass:attributes[{blank}]_path_pass:attributes[{blank}]`, without specifying the [option]`ip` option, the installation program will use [option]`ip=dhcp`.
 
 ====
 +
