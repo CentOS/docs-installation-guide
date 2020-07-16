@@ -208,7 +208,7 @@ Set the [option]`inst.stage2=hd:LABEL=` option and [option]`inst.ks=hd:LABEL=` o
 +
 [literal,subs="+quotes,attributes,verbatim"]
 ....
-`mount /root/centos-install/images/efiboot.img /mnt/`
+`mount /root/{PRODUCT}-install/images/efiboot.img /mnt/`
 ....
 +
 Edit the file `/mnt/EFI/BOOT/grub`:
@@ -232,7 +232,7 @@ Edit the file `/mnt/EFI/BOOT/grub`:
 +
 * For a **CDROM UEFI boot**, follow the steps:
 +
-.. Edit the file `/root/rhel-install/EFI/BOOT/grub.cfg`:
+.. Edit the file `/root/{PRODUCT}-install/EFI/BOOT/grub.cfg`:
 +
 .. Add a new menu entry to the file:
 +
