@@ -211,7 +211,7 @@ Set the [option]`inst.stage2=hd:LABEL=` option and [option]`inst.ks=hd:LABEL=` o
 `mount /root/centos-install/images/efiboot.img /mnt/`
 ....
 +
-Edit the file `/mnt/EFI/BOOT/grub`:
+Edit the file `/mnt/EFI/BOOT/grub.cfg`:
 +
 .. Add a new menu entry:
 +
