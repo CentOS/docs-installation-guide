@@ -59,7 +59,7 @@ When you do this, the icon for the flash drive disappears from your desktop. If 
 +
 [literal,subs="+quotes,verbatim,macros"]
 ....
-$ [command]`sudo dd if=pass:attributes[{blank}]_/path/to/image.iso_ of=/dev/rdiskpass:attributes[{blank}]_number_ bs=1m`
+$ [command]`pv pass:attributes[{blank}]_/path/to/image.iso_ | sudo dd of=/dev/rdiskpass:attributes[{blank}]_number_ bs=1m`
 ....
 +
 [NOTE]
@@ -76,7 +76,7 @@ To write the `/Users/pass:attributes[{blank}]_user_name_pass:attributes[{blank}]
 
 [literal,subs="+quotes,attributes,verbatim"]
 ....
-$ sudo dd if=/Users/user_name/Downloads/{PRODUCT}-server-x86_64-boot.iso of=/dev/rdisk2
+$ pv /Users/user_name/Downloads/{PRODUCT}-server-x86_64-boot.iso | sudo dd of=/dev/rdisk2
 ....
 
 ====
@@ -85,10 +85,10 @@ $ sudo dd if=/Users/user_name/Downloads/{PRODUCT}-server-x86_64-boot.iso of=/dev
 +
 [literal,subs="+quotes,verbatim"]
 ....
-load: 1.02  cmd: dd 3668 uninterruptible 0.00u 1.91s
-112+0 records in
-111+0 records out
-116391936 bytes transferred in 114.834860 secs (1013559 bytes/sec)
+4.39GiB 0:03:08 [23.8MiB/s] [============================================================================================================================================================>] 100%
+0+71904 records in
+0+71904 records out
+4712300544 bytes transferred in 188.501782 secs (24998706 bytes/sec)
 ....
 
 . The speed of the data transfer depends on the speed of your USB ports and the flash drive. After the prompt is displayed again, the data transfer is finished. You can then unplug the flash drive.
