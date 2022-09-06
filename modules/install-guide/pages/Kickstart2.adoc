@@ -51,7 +51,7 @@ The recommended approach to creating Kickstart files is to perform a manual inst
 [IMPORTANT]
 ====
 
-If you have a Red{nbsp}Hat Customer{nbsp}Portal account, you can use the [application]*Kickstart Configuration Tool* available at link:++https://access.redhat.com/labs/kickstartconfig/++[] in the Customer Portal Labs. This tool will walk you through basic configuration and allows you to download the resulting Kickstart file. However, the tool currently does not supported any advanced partitioning.
+If you have a Red{nbsp}Hat Customer{nbsp}Portal account, you can use the [application]*Kickstart Configuration Tool* available at link:++https://access.redhat.com/labs/kickstartconfig/++[] in the Customer Portal Labs. This tool will walk you through basic configuration and allows you to download the resulting Kickstart file. 
 
 [application]*Kickstart Configurator*, the graphical tool for creating Kickstart files, is still available. However, it is no longer being updated and it does not reflect changes in Kickstart syntax between {PRODUCT}{nbsp}6 and 7.
 
