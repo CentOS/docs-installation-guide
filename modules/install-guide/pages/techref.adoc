@@ -9,7 +9,7 @@ Both [application]*Anaconda* and {PRODUCT} systems use a common set of software 
 
 Boot Loader::
 +
-{PRODUCT} uses the [command]`GRUB2` boot loader. See the corresponding chapter in the [citetitle]_link:++https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/ch-Working_with_the_GRUB_2_Boot_Loader.html++[RRed{nbsp}Hat Enterprise{nbsp}Linux{nbsp}7 System Administrator's Guide]_.
+{PRODUCT} uses the [command]`GRUB2` boot loader. See the corresponding chapter in the [citetitle]_link:++https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/ch-Working_with_the_GRUB_2_Boot_Loader.html++[Red{nbsp}Hat Enterprise{nbsp}Linux{nbsp}7 System Administrator's Guide]_.
 
 Storage Management::
 +
